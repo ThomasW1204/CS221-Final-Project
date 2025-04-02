@@ -1,0 +1,21 @@
+{
+    "name": "flashcard-app",
+    "version": "1.0.0",
+    "description": "A multi-page flashcard web application using Node.js, MongoDB, and npm.",
+    "main": "src/server/server.js",  
+    "scripts": {
+        "start": "node src/server/server.js",  
+        "dev": "nodemon src/server/server.js" 
+    },
+    "keywords": ["flashcards", "Node.js", "MongoDB", "web application"],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.2",
+        "mongodb": "^5.5.0",
+        "dotenv": "^16.0.3"
+    }, 
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    } 
+}
