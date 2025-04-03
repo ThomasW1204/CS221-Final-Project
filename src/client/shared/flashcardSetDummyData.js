@@ -105,3 +105,5 @@ const flashcardSets = [
         ]
     }
 ];
+
+export default flashcardSets;
