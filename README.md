@@ -25,6 +25,7 @@ To use in your .js files, copy this at the top of your file:
 import flashcardSets from "../../shared/flashcardSetDummyData.js";
 ```
 Afterwards you can use it as if it was defined in that file
+
 Example:
 ```javascript
 flashcardSet = flashcardSets[0];
