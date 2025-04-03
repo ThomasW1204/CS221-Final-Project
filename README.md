@@ -18,7 +18,7 @@ Example: you may get error codes from trying to use "npm" commands if your path 
 ```
 
 Dummy Data for testing before working with DB can be found in 
-Navigate to the file '.\src\client\shared\flashcardSetDummyData.js'
+```'.\src\client\shared\flashcardSetDummyData.js'```
 
 To use in your .js files, copy this at the top of your file:
 ```javascript
