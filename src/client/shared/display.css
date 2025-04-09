@@ -1,0 +1,33 @@
+/*
+    Rules here are used for displaying elements or data
+    Pretty much currently only for any screens or elements that you want to hide or display.
+*/
+
+/* A Screen Element 
+*** Used with div, styles all screens
+*** Rules can be overwritten by using the screen id (id takes precedence over classes)
+*** Hidden by default, makes sure that default screen displayed on page startup has class .active (seen below)
+*/
+.screen {
+    display: none;
+}
+
+/* A active Screen
+*** Used in coordination with .screen (see above)
+*** Can only used with .screen context (class="screen active" or "active screen" both work)
+*** Will display the hidden screen
+*** DO NOT ADD MORE CONTENT *** create a separate rule if you need to
+*/
+.active.screen {
+    display: block;
+    /* Do Not Add Content, this rule is only used for revealing hidden screens */
+}
+
+/* A hidden screen or element 
+*** This one is preferred use with an element as screens are usually
+*** display: none; by default as seen by .screen rule above
+*/
+.hidden {
+    display: none;
+}
+
