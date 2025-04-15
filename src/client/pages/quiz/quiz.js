@@ -7,10 +7,13 @@
 // Import Flashcard set
 import flashcardSets from "../../shared/flashcardSetDummyData.js";
 
-// Index of Flashcard set
-index = 0;
+// Get references to the necessary elements that will be updated
+const start_button = document.getElementById("start-button");
 
-flashcardSet = flashcardSets[0];
+// Get the set for tests
+testSet = flashcardSets[0];
 
-title = Element.querySelector("title");
-
+// Functions
+function startQuiz(){
+    
+}

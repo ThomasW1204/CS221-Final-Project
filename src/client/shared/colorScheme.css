@@ -1,0 +1,17 @@
+:root {
+    --uab-green: #1E6B52; /*uab green*/
+    --uab-gold: #958d5c; /*uab gold*/
+}
+
+body {
+    min-height: 100vh;
+    background-color:var(--uab-green);
+}
+
+h2 {
+    background-color: var(--uab-gold);
+    color: var(--uab-green);
+    padding-left: 10px;
+    outline: 2px solid black;
+}
+

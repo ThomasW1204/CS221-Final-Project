@@ -6,19 +6,38 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title></title>
+        <link rel="stylesheet" href="../src/client/pages/quiz/quiz.css">
+        <link rel="stylesheet" href="../src/client/shared/display.css">
+        <link rel="stylesheet" href="../src/client/shared/colorScheme.css">
+        
+        <script type="module" src="../src/client/pages/quiz/quiz.js" defer></script>
+        <script type="module" src="../src/client/shared/flashcardSetDummyData.js"defer></script>
 
-        <link type="stylesheet" href="../src/client/pages/quiz/quiz.css">
-        <script src="../src/client/pages/quiz/quiz.js"></script>
-        <script src="../src/client/shared/flashcardSetDummyData.js"></script>
+        
     </head>
 
     <body>
         <header>
-
+            <button id="back"><img id="button-img" src="../src/client/pages/quiz/images/back-arrow-icon-16.jpg" alt="Back"></button>
+            <h2 id="Top Bar">Quiz</h2>
+            <a id="quiz-home" href="./index.html"> <button>Home</button></a>
         </header>
         <main>
+            
+            <div id="start" class="screen active">
+                
+                <p class="set-name"></p>
+                <p class="number-cards"></p>
+                <button id="start-button" >Start</button>
+            </div>
 
+            <div id="question" class="screen">
+                
+            </div>
+
+            <div id="results" class="screen">
+
+            </div>
         </main>
         <footer>
 
