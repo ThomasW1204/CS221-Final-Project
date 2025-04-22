@@ -13,7 +13,8 @@ main{
     gap: 20px; /   
 }
 
-.flashcardContent{
+
+#flashcard{
     background-color: aquamarine;
     align-self: center;
     text-align: center;
@@ -27,8 +28,10 @@ main{
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); 
 
-
+    cursor: pointer;
 }
+
+
 
 #bottomButtonContainer{
     display:flex;
@@ -38,6 +41,10 @@ main{
     columns: 2;   
     grid-column:2 ;
     grid-row: 3;
+}
+.bottomButtons{
+    width:100px;
+    height:75px;
 }
 
 #flashcardNumber{
@@ -54,8 +61,12 @@ main{
     align-self: center;
     grid-column: 3;
     grid-row: 2;
+    font-size: x-large;
+    transform: scale(2); 
 
-
+}
+#rightArrow:hover{
+    transform: scale(2.5); /* Makes the arrow twice as large on hover */
 }
 
 #leftArrow{
@@ -64,4 +75,9 @@ main{
     align-self: center;
     grid-column: 1;
     grid-row: 2;
+    font-size: x-large;
+    transform: scale(2); 
+}
+#leftArrow:hover{
+    transform: scale(2.5); /* Makes the arrow twice as large on hover */
 }
