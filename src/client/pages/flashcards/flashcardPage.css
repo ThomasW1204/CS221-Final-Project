@@ -28,10 +28,17 @@ main{
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); 
 
+    transform-style: preserve-3d; /* Allows 3D rotation of child elements */
+
+    perspective: 1000px; /* Enables 3D perspective */
+
     cursor: pointer;
 }
 
+#flashcardContent_ans{
+    transform:  rotateY(180deg); /* Double rotation to counteract the flip */
 
+}
 
 #bottomButtonContainer{
     display:flex;
@@ -81,3 +88,4 @@ main{
 #leftArrow:hover{
     transform: scale(2.5); /* Makes the arrow twice as large on hover */
 }
+
