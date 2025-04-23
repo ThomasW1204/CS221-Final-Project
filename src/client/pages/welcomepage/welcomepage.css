@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body{
+    background-color: grey;
+    padding: 40px;
+
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.logo {
+    padding:20px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.usericon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
+    font-size: 2rem;
+    color: #4CAF50;
+    font-weight: bold;
+    text-align: center;
+    line-height: 70px;
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.mainbox{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1500px;
+}
+h1{
+    font-size: 2rem;
+    margin-bottom: 5px;
+    text-align: center;
+    padding:20px
+}
+
+p{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px
+}
+
+.box{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-content: center;
+}
+
+.options{
+    background-color: green;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    height: 100px;
+    
+}
+
+.options:hover{
+    transform: 1.05s;
+}
