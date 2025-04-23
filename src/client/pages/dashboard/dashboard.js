@@ -1,3 +1,113 @@
+const flashcardSets = [
+    {
+        setName: "Programming Basics",
+        cards: [
+            { term: "Variable", definition: "A storage location in memory with an associated name for holding data." },
+            { term: "Function", definition: "A block of reusable code designed to perform a single, specific task." },
+            { term: "Loop", definition: "A structure that repeats a sequence of instructions until a condition is met." },
+            { term: "Array", definition: "A data structure that stores a collection of items, typically of the same type." },
+            { term: "Algorithm", definition: "A step-by-step procedure for solving a problem or performing a task." },
+            { term: "Conditional", definition: "A statement that executes code based on whether a condition is true or false." },
+            { term: "Debugging", definition: "The process of identifying and fixing errors in code." },
+            { term: "Compilation", definition: "The process of converting source code into executable code." },
+            { term: "Interpreter", definition: "A program that translates code into machine language one line at a time." },
+            { term: "Data Structure", definition: "A way of organizing and storing data for efficient access and modification." },
+            { term: "Stack", definition: "A data structure that follows Last In, First Out (LIFO) principles." },
+            { term: "Queue", definition: "A data structure that follows First In, First Out (FIFO) principles." },
+            { term: "Object-Oriented Programming", definition: "A programming paradigm based on the concept of 'objects' which contain data and methods." },
+            { term: "Inheritance", definition: "A mechanism where one class acquires the properties of another." },
+            { term: "Polymorphism", definition: "The ability of a function, object, or method to take on many forms." },
+            { term: "Class", definition: "A blueprint for creating objects, defining properties and behaviors." },
+            { term: "Variable Scope", definition: "The context in which a variable is accessible." },
+            { term: "API", definition: "A set of rules for interacting with software applications or systems." },
+            { term: "IDE", definition: "Integrated Development Environment, a tool for writing and debugging code." },
+            { term: "Git", definition: "A version control system for tracking changes in source code." },
+            { term: "Repository", definition: "A storage location for software code, often used with version control." },
+            { term: "HTTP", definition: "Hypertext Transfer Protocol, used for transmitting data over the web." },
+            { term: "JSON", definition: "JavaScript Object Notation, a lightweight data-interchange format." },
+            { term: "Frontend Development", definition: "Building the user interface of a website or application." },
+            { term: "Backend Development", definition: "Building the server-side logic of a website or application." },
+            { term: "Framework", definition: "A pre-written code library to simplify development tasks." },
+            { term: "Library", definition: "A collection of precompiled routines that a program can use." },
+            { term: "DOM", definition: "Document Object Model, representing the structure of a web page." },
+            { term: "Event Listener", definition: "A procedure in JavaScript to detect and respond to user interactions." }
+        ]
+    },
+    {
+        setName: "World Capitals",
+        cards: [
+            { term: "Afghanistan", definition: "Kabul" },
+            { term: "Argentina", definition: "Buenos Aires" },
+            { term: "Australia", definition: "Canberra" },
+            { term: "Austria", definition: "Vienna" },
+            { term: "Brazil", definition: "Brasília" },
+            { term: "Canada", definition: "Ottawa" },
+            { term: "Chile", definition: "Santiago" },
+            { term: "China", definition: "Beijing" },
+            { term: "Denmark", definition: "Copenhagen" },
+            { term: "Egypt", definition: "Cairo" },
+            { term: "France", definition: "Paris" },
+            { term: "Germany", definition: "Berlin" },
+            { term: "Greece", definition: "Athens" },
+            { term: "India", definition: "New Delhi" },
+            { term: "Indonesia", definition: "Jakarta" },
+            { term: "Italy", definition: "Rome" },
+            { term: "Japan", definition: "Tokyo" },
+            { term: "Mexico", definition: "Mexico City" },
+            { term: "Netherlands", definition: "Amsterdam" },
+            { term: "Norway", definition: "Oslo" },
+            { term: "Pakistan", definition: "Islamabad" },
+            { term: "Russia", definition: "Moscow" },
+            { term: "Saudi Arabia", definition: "Riyadh" },
+            { term: "South Africa", definition: "Pretoria" },
+            { term: "South Korea", definition: "Seoul" },
+            { term: "Spain", definition: "Madrid" },
+            { term: "Sweden", definition: "Stockholm" },
+            { term: "Switzerland", definition: "Bern" },
+            { term: "Turkey", definition: "Ankara" },
+            { term: "United States", definition: "Washington, D.C." }
+        ]
+    },
+
+    {
+        setName: "Animal Facts",
+        cards: [
+            { term: "Elephant", definition: "The largest land animal, known for its trunk and tusks." },
+            { term: "Cheetah", definition: "The fastest land animal, capable of speeds up to 70 mph." },
+            { term: "Penguin", definition: "A flightless bird known for its black and white appearance and swimming abilities." },
+            { term: "Blue Whale", definition: "The largest animal on Earth, measuring up to 100 feet long." },
+            { term: "Octopus", definition: "A marine creature with eight arms and impressive problem-solving abilities." },
+            { term: "Tiger", definition: "A striped big cat known for its strength and agility." },
+            { term: "Koala", definition: "An herbivorous marsupial native to Australia, often seen in eucalyptus trees." },
+            { term: "Hummingbird", definition: "A tiny bird capable of hovering by rapidly flapping its wings." },
+            { term: "Great White Shark", definition: "A powerful predator often called the king of the ocean." },
+            { term: "Giraffe", definition: "The tallest land animal, recognized for its long neck and legs." },
+            { term: "Arctic Fox", definition: "A small fox adapted to live in Arctic regions, with thick fur to keep warm." },
+            { term: "Sloth", definition: "A slow-moving animal that spends much of its time hanging in trees." },
+            { term: "Bald Eagle", definition: "The national bird of the United States, known for its sharp vision." },
+            { term: "Dolphin", definition: "An intelligent marine mammal known for its playful behavior." },
+            { term: "Rhino", definition: "A large herbivore with thick skin and one or two horns on its face." },
+            { term: "Peacock", definition: "A bird famous for its vibrant, colorful tail feathers." },
+            { term: "Bat", definition: "The only mammal capable of sustained flight." },
+            { term: "Polar Bear", definition: "A bear species adapted to Arctic life, with white fur for camouflage." },
+            { term: "Kangaroo", definition: "An iconic Australian marsupial known for its hopping locomotion." },
+            { term: "Panda", definition: "A bear native to China, known for eating bamboo and its black-and-white coat." },
+            { term: "Wolf", definition: "A pack animal known for its howling and strong family bonds." },
+            { term: "Camel", definition: "A desert animal famous for storing water and nutrients in its hump." },
+            { term: "Owl", definition: "A nocturnal bird with sharp eyesight and silent flight." },
+            { term: "Lion", definition: "Often called the king of the jungle, recognized for its mane and roar." },
+            { term: "Sea Turtle", definition: "A marine reptile with a shell, known for long-distance migrations." },
+            { term: "Crocodile", definition: "A powerful aquatic reptile, often seen in freshwater rivers." },
+            { term: "Ant", definition: "A small insect known for its teamwork and building colonies." },
+            { term: "Flamingo", definition: "A bird known for its pink feathers and long legs." },
+            { term: "Beaver", definition: "An animal famous for building dams and lodges in rivers." },
+            { term: "Chimpanzee", definition: "A highly intelligent primate closely related to humans." }
+        ]
+    }
+];
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     if(flashcardSets){
         let setP = document.getElementById("setP"); 
@@ -7,9 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let set = document.getElementsByClassName("set");
         const setContainer = document.getElementById("flashcardSets");
         let index = 0;
-        const flashcardSets = [
-            
-        ];    
         for(let element of flashcardSets){
             set[index].innerHTML = element.setName;
             set[index].style.display = "block";
