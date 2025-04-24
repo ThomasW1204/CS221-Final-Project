@@ -1,9 +1,10 @@
 
+let ques =[];
+let answ =[];
 let isFlipped = false;
 
 function flipCard(){
 isFlipped = !isFlipped;
-
 // Flip the card
 anime({
   targets: '#flashcard',
@@ -30,31 +31,13 @@ if (isFlipped) {
 
 
 
-//gotta fetch from the JSON to display the term and def 
-//how am i going to know which set the choose. maybe import the chosenSet variable from another page 
 
 
-
-const url = `...src\client\shared\flashcardSetDummyData.js` //maybe import the data using import statement 
-
-function fetchTerm(){
-
-
-
-}
-
-
-function fetchDef(){
-
-}
-
-
-
+//need to add an event listener for the arrows so that we can pass in quest and answer to load the card????!!!!!!!!!!
 function next() {
   const card = document.getElementById('flashcard');
 
-
-  // Step 1: Animate off screen right
+  //off screen right
   anime({
     targets: card,
     translateX: '100%',
@@ -129,14 +112,36 @@ function back() {
 //fix the first card 
 
 
+//ADD CATCHES FOR ERRORS 
+
+async function getData() {
+  const response = await fetch("/src/client/pages/flashcards/dummy.json");
+  const data = await response.json();
+  return data;
+}
+
+
+async function PData(){
+  const data = await getData(); 
+  let i = 0;
+  data.forEach(item => {
+    ques.push(item.question)
+    answ.push(item.answer)
+    console.log(ques[i])
+    console.log(answ[i])
+i++;
+  });
+}
+
+
+
+PData()
+console.log("output")
+
+
 
 let currentCardIndex = 0;
 
-const test = [
-  { question: "testq1", answer: "testans1" },
-  { question: "testq2", answer: "testans2" },
-  { question: "testq3", answer: "testans3" },
-];
 
 function loadNextCard() {
   currentCardIndex = (currentCardIndex + 1) % test.length;
