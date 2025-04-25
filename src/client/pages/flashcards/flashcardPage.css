@@ -1,21 +1,30 @@
 header{
     text-align: center;
+    color:#066f14
+}
+
+#flashcardNumber{
+    font-weight: bolder;
+    color:#066f14;
 }
 
 main{
-    background-color: lightgray;
+    /*background-color: lightgray;*/
+
+    background-color: #83958A;
     padding:25px;
     display:grid;
     justify-content: center;
     grid-template-columns: 1fr 550px 1fr; 
     grid-template-rows: 1fr 350px 1fr; 
 
+
     gap: 20px; /   
 }
 
 
 #flashcard{
-    background-color: aquamarine;
+    background-color: white;
     align-self: center;
     text-align: center;
     align-content: center;
@@ -28,10 +37,17 @@ main{
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); 
 
+    transform-style: preserve-3d; /* Allows 3D rotation of child elements */
+
+    perspective: 1000px; /* Enables 3D perspective */
+
     cursor: pointer;
 }
 
+#flashcardContent_ans{
+    transform:  rotateY(180deg); /* Double rotation to counteract the flip */
 
+}
 
 #bottomButtonContainer{
     display:flex;
@@ -56,7 +72,7 @@ main{
 
 
 #rightArrow{
-    color:brown;
+    color:green;
     justify-self: left;
     align-self: center;
     grid-column: 3;
@@ -70,7 +86,7 @@ main{
 }
 
 #leftArrow{
-    color:green;
+    color:red;
     justify-self: right;
     align-self: center;
     grid-column: 1;
@@ -81,3 +97,4 @@ main{
 #leftArrow:hover{
     transform: scale(2.5); /* Makes the arrow twice as large on hover */
 }
+

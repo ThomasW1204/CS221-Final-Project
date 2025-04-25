@@ -26,16 +26,15 @@
         <div id="flashcardNumber"><p>Flashcard: 1/1</p></div> <!--display number-->
 
         
-        <p id="leftArrow">&larr;</p>
+        <p id="leftArrow" onclick="back()">&larr;</p>
     
         <div id="flashcard" onclick="flipCard()">
-        
-            <div id="flashcardContent_question"><p>question</p></div> <!--Where the question is-->
-            <div id="flashcardContent_ans" style="display: none;"><p>answer</p></div> <!--Where the answer is revealed when question or flip is pressed--> 
+                <div  id="flashcardContent_question"><p></p></div> <!--Where the question is-->
+                <div  id="flashcardContent_ans" style="display: none;"><p></p></div> <!--Where the answer is revealed when question or flip is pressed--> 
         
         </div>
 
-        <p id="rightArrow">&rarr;</p>
+        <p id="rightArrow" onclick="next()">&rarr;</p>
 
 
         <div id="bottomButtonContainer">
@@ -51,7 +50,10 @@
     <footer>
          footer?<br>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="../src/client/pages/flashcards/flashcardPage.js"></script>
+
 </body>
 
 
