@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded",()=>{
             return null;
         }
 
+
+        //loops throught flashcard created in the set
         const cards= Array.from(cardsContainer.children).map(card =>{
             const inputs= card.querySelectorAll("input, textarea");
             return{
@@ -58,9 +60,19 @@ document.addEventListener("DOMContentLoaded",()=>{
                 definition: inputs[1].value.trim(),
                 image:inputs[2].value.trim()||null
             };
-        }).filter(card=> card.term && card.definition);
+        }).filter(card=> card.term && card.definition); //filter keeps the cards that have at least a term and definition
 
         return{setName,cards};
+    };
+
+    //created a method to save/update setToLocalStorge so that other pages can pull from user's localStorage
+
+    const saveSetToLocalStorage =(flashCardSet)=>{
+
+        const allSets =JSON.parse(localStorage.getItem("allSets"))||{};
+        allSets[flashCardSet.setName]=flashCardSet;
+        localStorage.setItem("allSets",JSON.stringify(allSets));
+        
     };
 
     //button used to export file as JSON
@@ -69,18 +81,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         const flashCardSet=collectFlashcardSet();
         if(!flashCardSet) return;
 
-        const setName=flashCardSet.setName;
+        saveSetToLocalStorage(flashCardSet);
 
-        localStorage.setItem(setName,JSON.stringify(flashCardSet));
 
-        //uses let so numbers of sets can be increased
-        let allTitles=JSON.parse(localStorage.getItem("setTitles"))||[];
-        if(!allTitles.includes(setName)){
-            allTitles.push(setName);
-            localStorage.setItem("setTitles",JSON.stringify(allTitles));
-        }
-
-        
+        //exports files of set just created
         const flashCardSetBlob= new Blob([JSON.stringify(flashCardSet,null,2)], {type:"application/json"});
         const flashCardSetURL= URL.createObjectURL(flashCardSetBlob);
         const flashCardSetLink=document.createElement("a");
@@ -88,16 +92,6 @@ document.addEventListener("DOMContentLoaded",()=>{
         flashCardSetLink.download= `${flashCardSet.setName.replace(/\s+/g,'_')}.json`;
         flashCardSetLink.click();
         URL.revokeObjectURL(flashCardSetURL);
-
-
-        const titlesBlob= new Blob([JSON.stringify(allTitles,null,2)], {type:"application/json"});
-        const titlesURL= URL.createObjectURL(titlesBlob);
-        const titlesLink=document.createElement("a");
-       
-        titlesLink.href=titlesURL;
-        titlesLink.download= `setTitles.json`;
-        titlesLink.click();
-        URL.revokeObjectURL(titlesURL);
     
     });
 
@@ -109,17 +103,9 @@ document.addEventListener("DOMContentLoaded",()=>{
         const flashCardSet=collectFlashcardSet();
         if(!flashCardSet) return;
 
-        //saves set user just created by it's title in their locla storage
-        localStorage.setItem(flashCardSet.setName,JSON.stringify(flashCardSet));
+        //saves set user just created by it's title in their localstorage
+        saveSetToLocalStorage(flashCardSet);
 
-        //updates the titles list in user's local storage and if there is not a setTitles, adds set to an empty list
-        const title=JSON.parse(localStorage.getItem("setTitles"))||[];
-        if(!title.includes(flashCardSet.setName)){
-            title.push(flashCardSet.setName);
-            localStorage.setItem("setTitles",JSON.stringify(title));
-        }
-
- 
         //helps flashcardPage.html know by setName which file to let the viewer see (the one just uploaded)
         localStorage.setItem("currentSet",flashCardSet.setName);
         window.location.href ="flashcardPage.html";
