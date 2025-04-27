@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("Selected set:", setTitle); 
 
 
-    setTitle = setTitle.replace("_", " ");  // This replaces underscore with a space
+    setTitle = setTitle.replace(/_/g, " ");  // Replaces all underscores with a space
 
  document.getElementById("setName").textContent = setTitle  //set the name on the page to the users selected set
 
@@ -225,8 +225,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const sets = JSON.parse(allSets);  
       console.log("Parsed allSets:", sets);  
 
-      
+
       const selectedSetData = sets[setTitle];  //search all sets for the user selected set
+    
 
       if (selectedSetData) {
         console.log("Selected set data:", selectedSetData);

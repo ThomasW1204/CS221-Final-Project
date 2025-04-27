@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 saveSetToAllSets(importedData);
 
                 const parts2 = file.name.split(".");
-                const newSetName = parts2[0]; // Extract the set name as a string
-                PData(url, false, newSetName); // Pass the string directly
+                const newSetName = parts2[0]; 
+                PData(url, false, newSetName); 
             } catch (error) {
                 console.error("Error parsing uploaded file:", error);
             }
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function saveSetToAllSets(newSet) {
-    let allSets = JSON.parse(localStorage.getItem("allSets")) || [];
-    allSets.push(newSet); 
+    let allSets = JSON.parse(localStorage.getItem("allSets")) || {};
+    allSets[newSet.setName] = newSet; 
     localStorage.setItem("allSets", JSON.stringify(allSets));
 }
