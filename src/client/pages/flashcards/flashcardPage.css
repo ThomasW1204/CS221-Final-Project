@@ -11,7 +11,7 @@ header{
 main{
     /*background-color: lightgray;*/
 
-    background-color: #83958A;
+    background-color: grey;
     padding:25px;
     display:grid;
     justify-content: center;
