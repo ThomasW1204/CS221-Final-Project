@@ -123,6 +123,7 @@ function startQuiz(){
     }
     generateQuestion();
     nextQuestion();
+    console.log(buttonObjectArray)
 }
 
 
@@ -134,7 +135,6 @@ function startQuiz(){
  */
 function generateQuestion(){
     questionNumber = previousQuestions.length;
-    resetQuestionScreen();
 
     const questionIndex = Math.floor(Math.random() * testSet.cards.length);
     const question = testSet.cards[questionIndex].term;
@@ -147,10 +147,15 @@ function generateQuestion(){
         return cardDefintions;
     }
     answerChoices = answerChoices();
-    const correctIndex = answerChoices.indexOf(answer) < 0 ? answerChoices.indexOf(answer): Math.floor(Math.random() *4);
-    
+    const correctIndex = answerChoices.indexOf(answer) >= 0 ? answerChoices.indexOf(answer): (() => {
+        const correctIndex = Math.floor(Math.random() *4)
+        answerChoices[correctIndex] = answer;
+        return correctIndex;
+    })();
+    console.log("Correct Index: " + correctIndex);
 
     previousQuestions.push(new QuestionState(question,answerChoices,correctIndex));
+    console.log(previousQuestions[questionNumber]);
     questionNumber++;
 
 }
@@ -161,21 +166,32 @@ function generateQuestion(){
 function nextQuestion() {
     loadQuestion(++currentQuestion);
     generateQuestion();
+    testFunction();
 }
 
 function loadQuestion(index) {
+    console.log("Loading Question: " + index);
+    resetQuestionScreen();
+    console.log(previousQuestions[index]);
+
     currentQuestion = previousQuestions[index];
 
     question_p.textContent = currentQuestion.question;
 
     buttonObjectArray.forEach((button, index) => {
+        // Set textContent of button to be the answer choice
         button.element.textContent=currentQuestion.answerChoices[index];
+        // set the event listener to be the correct answer or wrong answer
         if (index === currentQuestion.correctIndex) {
+            console.log("Correct Answer: " + button.id);
             button.clickHandler = correctAnswer;
             
         } else {
+            console.log("Wrong Answer: " + button.id);
             button.clickHandler = wrongAnswer;
         }
+        console.log(button.clickHandler);
+        console.log(`Adding Event Listener ${button.clickHandler} to ${button.id}`);
         button.element.addEventListener('click', button.clickHandler);
     })
 
@@ -183,36 +199,45 @@ function loadQuestion(index) {
 }
 
 function wrongAnswer(event){
+    console.log("Wrong Answer Clicked");
     event.target.style.backgroundColor = 'red';
     
-    wrongChoices += 1;
 
-    // If all guesses are wrong
-    if (wrongChoices >= 3){
-        // Set Next Question Button to be visible
-        nextQuestionButton.style.display = 'block';
-        nextQuestionButton.addEventListener('click',nextQuestion);
-
-        correctButton.click();
-    }
-
-    
 }
 
-
+/**
+ * Calls revealAnswers to show the correct answer and remove event listeners from the buttons
+ * Adds to the Score
+ * @param {*} event : The button that was clicked
+ */
 function correctAnswer(event) {
-    event.target.style.backgroundColor = 'lightgreen';
-    
-    buttonObjectArray.forEach((buttonObject,index) => {
-        if (buttonObject.clickHandler === wrongAnswer){
-            buttonObject.element.addClass('wrong')
-        }
-        buttonObject.removeEventListener('click',buttonObject.clickHandler);
-    });
 
-    // Set Next Question Button to be visible
+    console.log("Correct Answer Clicked");
+    // Call revealAnswers to show the correct answer and remove event listeners from the buttons
+    revealAnswers(event);
+
+}
+
+/**
+ * Reveals the correct and wrong answers to the question
+ * Also removes the event listeners from the buttons so that they cannot be clicked again
+ * By checking the clickHandler property of the button object, we can determine if it is correct or wrong
+ * @param {*} event 
+ */
+function revealAnswers(event) {
+    console.log("Revealing Answers");
+    event.target.style.backgroundColor = 'lightgreen';
+    buttonObjectArray.forEach((button) => {
+        if (button.clickHandler === correctAnswer) {
+            button.element.style.backgroundColor = 'lightgreen';
+        } else {
+            button.element.style.backgroundColor = 'red';
+        }
+        button.element.removeEventListener('click', button.clickHandler);
+    })
+    // Reveal the next question button and add the event listener to it
     nextQuestionButton.style.display = 'block';
-    nextQuestionButton.addEventListener('click',generateQuestion);
+    nextQuestionButton.addEventListener('click', nextQuestion);
 }
 
 /**
@@ -239,3 +264,22 @@ startButton.addEventListener("click", startQuiz);
 /*
 
 */
+
+
+
+function testFunction(){
+    console.log("Test Function Called")
+    // This is a test function to see if the event listener works
+    buttonObjectArray.forEach((button) => {
+        button.element.click();
+
+    });
+    // It will be removed later
+    // This is a test function to see if the event listener works
+    // It will be removed later
+    // This is a test function to see if the event listener works
+    // It will be removed later
+    // This is a test function to see if the event listener works
+    // It will be removed later
+}
+
