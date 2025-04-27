@@ -18,9 +18,8 @@
 
     <body>
         <header>
-            <button id="back"><img id="button-image" src="../src/client/pages/quiz/images/back-arrow-icon-16.jpg" alt="Back"></button>
-            <h2 id="Top Bar">Quiz</h2>
-            <a id="quiz-home" href="./index.html"> <button>Home</button></a>
+            <h2 id="Top-Bar">Quiz</h2>
+            <a id="quiz-home" href="./index.html"><button>Home</button></a>
         </header>
         <main>
             
@@ -28,8 +27,30 @@
                 
                 <p class="set-name"></p>
                 <p class="number-cards"></p>
-                <button id="start-button" >Start</button>
+                <button id="start-button">Start</button>
+
+                <div class="overlay" id="quiz-type-options">
+                    <h3>Options</h3>
+                    <div>
+                        <input type="radio" id="generated-quiz" name="quiz-type" value="generated" checked>
+                        <label for="generated-quiz">Generated Quiz</label>
+                        <div id="generated-quiz-option">
+                            <label for="question-count">Number of Questions:</label>
+                            <input type="number" id="question-count" name="question-count" min="1" max="100" value="10">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" id="custom-quiz" name="quiz-type" value="custom" disabled>
+                        <label for="custom-quiz">Custom Quiz</label>
+                        <div id="custom-quiz-option" style="display: none;">
+                            <label for="custom-quiz-file">Select Quiz File:</label>
+                            <input type="file" id="custom-quiz-file" name="custom-quiz">
+                        </div>
+                    </div>
+                    <button id="start-quiz">Start Quiz</button>
+                </div>
             </div>
+
 
             <div id="quiz-screen" class="screen">
                 <div id="question">

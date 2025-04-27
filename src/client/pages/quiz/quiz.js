@@ -109,7 +109,17 @@ const previousQuestions = [];
 let questionNumber = 0;
 let currentQuestion = -1;
 
+let correctAnswerCount = 0;
+let maxNumberOfQuestions = 10; // This is the maximum number of questions that can be generated for a generated quiz. Default is 10
 // Functions
+
+function selectQuizType() {
+    const quizTypeOptions = document.getElementById("quiz-type-options");
+    quizTypeOptions.classList.add('active');
+    
+    const startQuizButton = document.getElementById("start-quiz");
+    startQuizButton.addEventListener('click', startQuiz);
+}
 
 /**
  * This Function Starts the Quiz by switching to the quiz scree, generating a question
@@ -121,42 +131,47 @@ function startQuiz(){
         console.error(`Screen Switch Failed with Code: ${screenSwitchCode}`);
         return;
     }
-    generateQuestion();
+    generateQuestions();
     nextQuestion();
     console.log(buttonObjectArray)
+
+    nextQuestionButton.addEventListener('click', nextQuestion);
+    prevQuest.addEventListener('click', previousQuestion);
 }
 
 
 /**
- * This Function Generates a Question
+ * This Function Generates 10 Questions
  * It first finds a random card and gets the correct answer. From there it sets the question
  * bar to have the term. The answer buttons are then replaced by random definitions. Then a random
  * button is selected as the correct answer.
  */
-function generateQuestion(){
-    questionNumber = previousQuestions.length;
+function generateQuestions(){
+    for (let i = 0; i < 10; i++){
+        questionNumber = previousQuestions.length;
 
-    const questionIndex = Math.floor(Math.random() * testSet.cards.length);
-    const question = testSet.cards[questionIndex].term;
-    const answer = testSet.cards[questionIndex].definition;
-    let answerChoices = () => {
-        const cardDefintions = [];
-        for (let i = 0; i < 4; i++){
-            cardDefintions.push(testSet.cards[Math.floor(Math.random() * testSet.cards.length)].definition);
+        const questionIndex = Math.floor(Math.random() * testSet.cards.length);
+        const question = testSet.cards[questionIndex].term;
+        const answer = testSet.cards[questionIndex].definition;
+        let answerChoices = () => {
+            const cardDefintions = [];
+            for (let i = 0; i < 4; i++){
+                cardDefintions.push(testSet.cards[Math.floor(Math.random() * testSet.cards.length)].definition);
+            }
+            return cardDefintions;
         }
-        return cardDefintions;
-    }
-    answerChoices = answerChoices();
-    const correctIndex = answerChoices.indexOf(answer) >= 0 ? answerChoices.indexOf(answer): (() => {
-        const correctIndex = Math.floor(Math.random() *4)
-        answerChoices[correctIndex] = answer;
-        return correctIndex;
-    })();
-    console.log("Correct Index: " + correctIndex);
+        answerChoices = answerChoices();
+        const correctIndex = answerChoices.indexOf(answer) >= 0 ? answerChoices.indexOf(answer): (() => {
+            const correctIndex = Math.floor(Math.random() *4)
+            answerChoices[correctIndex] = answer;
+            return correctIndex;
+        })();
+        console.log("Correct Index: " + correctIndex);
 
-    previousQuestions.push(new QuestionState(question,answerChoices,correctIndex));
-    console.log(previousQuestions[questionNumber]);
-    questionNumber++;
+        previousQuestions.push(new QuestionState(question,answerChoices,correctIndex));
+        console.log(previousQuestions[questionNumber]);
+        questionNumber++;
+    }
 
 }
 
@@ -164,50 +179,72 @@ function generateQuestion(){
  * Loads the next question
  */
 function nextQuestion() {
-    loadQuestion(++currentQuestion);
-    generateQuestion();
-    testFunction();
+    console.log("Next Question Clicked");
+    console.log("Current Question: " + currentQuestion);
+    console.log("Question Number Count: " + questionNumber);
+    if (currentQuestion >= questionNumber) {
+        loadQuestion(++currentQuestion);
+        // If running low on questions, generate more
+        if (currentQuestion >= questionNumber -5) {
+            console.log("Generating Questions")
+            generateQuestions();
+        }
+    }
+
+   loadQuestion(++currentQuestion);
+}
+
+function previousQuestion() {
+    if (!(currentQuestion <= 0)) 
+        loadQuestion(--currentQuestion);
 }
 
 function loadQuestion(index) {
     console.log("Loading Question: " + index);
+    
     resetQuestionScreen();
-    console.log(previousQuestions[index]);
 
-    currentQuestion = previousQuestions[index];
+    const currentQuestionObject = previousQuestions[index];
+    console.log(currentQuestionObject);
 
-    question_p.textContent = currentQuestion.question;
+    question_p.textContent = currentQuestionObject.question;
 
     buttonObjectArray.forEach((button, index) => {
         // Set textContent of button to be the answer choice
-        button.element.textContent=currentQuestion.answerChoices[index];
+        button.element.textContent=currentQuestionObject.answerChoices[index];
         // set the event listener to be the correct answer or wrong answer
-        if (index === currentQuestion.correctIndex) {
-            console.log("Correct Answer: " + button.id);
+        if (index === currentQuestionObject.correctIndex) {
             button.clickHandler = correctAnswer;
             
         } else {
-            console.log("Wrong Answer: " + button.id);
             button.clickHandler = wrongAnswer;
         }
-        console.log(button.clickHandler);
-        console.log(`Adding Event Listener ${button.clickHandler} to ${button.id}`);
         button.element.addEventListener('click', button.clickHandler);
     })
 
-
+    if (currentQuestionObject.answered) {
+        // If the question has already been answered, reveal the answers
+        revealAnswers();
+        buttonObjectArray[currentQuestionObject.clickedIndex].element.classList.add('clicked');
+    }
 }
 
-function wrongAnswer(event){
-    console.log("Wrong Answer Clicked");
-    event.target.style.backgroundColor = 'red';
-    
-
+/**
+ * Action listener callback function
+ * This it the listener that is added to the buttons that hold the wrong answer
+ * It reveals the answers as wrong or correct and does not add a point to the correct.
+ * It also removes all event listeners so the buttons cannot be clicked again
+ * @param {*} event : the button that is clicked
+ */
+function wrongAnswer(event) {
+    console.log("Wrong Answer Clicked")
+    revealAnswers(event);
+    event.target.classList.add('clicked');
 }
 
 /**
  * Calls revealAnswers to show the correct answer and remove event listeners from the buttons
- * Adds to the Score
+ * Adds to the Score of correct.
  * @param {*} event : The button that was clicked
  */
 function correctAnswer(event) {
@@ -215,7 +252,9 @@ function correctAnswer(event) {
     console.log("Correct Answer Clicked");
     // Call revealAnswers to show the correct answer and remove event listeners from the buttons
     revealAnswers(event);
-
+    event.target.classList.add('clicked');
+    // Add to the score of correct
+    correctAnswerCount++;
 }
 
 /**
@@ -226,18 +265,22 @@ function correctAnswer(event) {
  */
 function revealAnswers(event) {
     console.log("Revealing Answers");
-    event.target.style.backgroundColor = 'lightgreen';
-    buttonObjectArray.forEach((button) => {
+    let clickedIndex = 0;
+    buttonObjectArray.forEach((button, index) => {
         if (button.clickHandler === correctAnswer) {
-            button.element.style.backgroundColor = 'lightgreen';
+            button.element.classList.add('correct');
         } else {
-            button.element.style.backgroundColor = 'red';
+            button.element.classList.add('wrong');
         }
         button.element.removeEventListener('click', button.clickHandler);
+        if (button.element.classList.contains('clicked')) {
+            clcikedIndex = index;
+        }
     })
     // Reveal the next question button and add the event listener to it
     nextQuestionButton.style.display = 'block';
-    nextQuestionButton.addEventListener('click', nextQuestion);
+    previousQuestions[currentQuestion].answer(clickedIndex);
+    
 }
 
 /**
@@ -248,11 +291,21 @@ function revealAnswers(event) {
  * After that we replace the original with the new duplicate so that 
  */
 function resetQuestionScreen(){
+    console.log("Resetting Question Screen")
     nextQuestionButton.style.display = 'none';
-    nextQuestionButton.removeEventListener('click',generateQuestion);
+
+    if (currentQuestion <= 0) {
+        prevQuest.style.display = 'none';
+    } else {
+        prevQuest.style.display = 'block';
+    }
+
+    // Clear the event listeners from the buttons and reset the class names
     buttonObjectArray.forEach((button) => {
-        button.className = DEFAULT_ANSWER_BUTTON_CLASS;
+        console.log("\n\n");
+        button.element.className = DEFAULT_ANSWER_BUTTON_CLASS;
         button.element.removeEventListener('click', button.clickHandler);
+        button.clickHandler = null;
     })
 
 }
@@ -260,26 +313,8 @@ function resetQuestionScreen(){
 
 
 // Setup Start Listener
-startButton.addEventListener("click", startQuiz);
-/*
+startButton.addEventListener("click", selectQuizType);
 
-*/
-
-
-
-function testFunction(){
-    console.log("Test Function Called")
-    // This is a test function to see if the event listener works
-    buttonObjectArray.forEach((button) => {
-        button.element.click();
-
-    });
-    // It will be removed later
-    // This is a test function to see if the event listener works
-    // It will be removed later
-    // This is a test function to see if the event listener works
-    // It will be removed later
-    // This is a test function to see if the event listener works
-    // It will be removed later
-}
+// Set Top Bar to be the name of the set
+const topBar = document.getElementById("Top-Bar").textContent = `Quiz - ${testSet.setName}`;
 
