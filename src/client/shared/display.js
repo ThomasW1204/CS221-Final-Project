@@ -1,4 +1,5 @@
 /**
+
  * This file handles screen and overlay manipulations and dynamic switching.
  * 
  * It ensures only one screen is active at a time and controls overlay states.
@@ -25,6 +26,7 @@
  * @extends Error
  * @param {string} message - Description of the error.
  * @param {number} code - Error code from `ScreenErrorCodes`.
+
  */
 class ScreenError extends Error {
     constructor(message,code){
@@ -61,6 +63,7 @@ class ScreenError extends Error {
  * if (result !== 0) {
  *     console.error("Screen switch failed with code:", result);
  * }
+
  */
 export function switchActiveScreen(newScreenID) {
     // Get all screens on page
@@ -69,11 +72,13 @@ export function switchActiveScreen(newScreenID) {
     try {
         // Error Catching
         if (!activeScreens) {
+
             throw new ScreenError("No Active Screen Found", 11);
         } else if (activeScreens.length > 11) {
             throw new ScreenError("More Than ONE Active Screen: " + activeScreen.join(',') + ".",12);
         } else if (activeScreens[0].id === newScreenID) {
             throw new ScreenError("Input Screen Already Active: " + newScreenID, 13);
+
         } 
 
         // Switch Screens
@@ -100,6 +105,7 @@ export function switchActiveScreen(newScreenID) {
     }
     return 0; // success
 }
+
 
 /**
  * Activates an overlay element by adding the `.active` class.

@@ -1,0 +1,86 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    padding: 15px;
+    text-align: center;
+}
+#profilePic{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+#header-sets{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 10px;
+}
+#bar{
+    background-color: #696969;
+    position: sticky;
+}
+#flashcardSets{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    grid-row-gap: 25px;
+    grid-column-gap: 50px;
+    overflow: hidden;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#flashcardSets > a{
+    text-align: center;
+    font-size: 2em;
+    padding: 25px 50px 50px 25px;  
+    background-color: #696969;
+    color: #83958A;
+    display: none;
+}
+p{
+    text-align: center;
+    font-size: 1.5em;
+}
+#flashcardSets > a:hover{
+    transform: scale(1.10);
+}
+#home{
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 2em;
+    text-decoration: none;
+    color: #066f14;
+}
+#home:hover{
+    transform: scale(1.05);
+}
+#profilePic:hover{
+    transform: scale(1.05);
+}
+#importExport{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+    align-content: center;
+    gap: 20px;
+}
+input{
+    display: none;
+}
+#createNew{
+    text-decoration: none;
+    color: black;
+}
+.fileUploadC, #createNew{
+    border: 2px solid #696969;
+    background-color: #066f14;
+    display: inline-block;
+    padding: 18px 36px;
+    cursor: pointer;
+}

@@ -31,6 +31,7 @@
     display: none;
 }
 
+
 /*  An element that will be overlayed on top of a screen
 *** This will style the element of the overlay class that displays
 *** The element over the current screen
@@ -66,3 +67,4 @@
     opacity: 1; /* Make Visible */
     visibility: visible;
 }
+
