@@ -31,3 +31,40 @@
     display: none;
 }
 
+
+/*  An element that will be overlayed on top of a screen
+*** This will style the element of the overlay class that displays
+*** The element over the current screen
+*** This will be used as the container for the overlay NOT THE OVERLAY ITSELF
+*** Style the content inside of the header (so an example might look like <div class="overlay"><div id="content">
+*** Where div content would be a single div that would display the overlay over main content
+*/
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* This needs to be set in your content div inside your overlay 
+                    This is because by default your content will take up the entire screen
+                    And if you wish to include any animations (like I will do with our navbar
+                    You need to overwrite this to make any translation(transition) animations
+                    height does not need to be changed but you will need to change for any vertical
+                    translation animations or if content does not cover entire screen. */
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none; /* By Default Not Visible */
+    z-index: 1000; /* On Top */
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.25s ease-in; /* Fades in Opacity for out overlay (makes it look pretty :) ) */
+    visibility: hidden;
+}
+
+/* This is activates the overlay, depending upon the content in your overlay, you might want to 
+*** Define your own custom activateOverlay functions in JS as currently I'm unsure of how animiations will
+*** work when display is set to block
+*/
+.active.overlay {
+    display: block;
+    opacity: 1; /* Make Visible */
+    visibility: visible;
+}
+

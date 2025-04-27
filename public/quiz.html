@@ -6,19 +6,51 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title></title>
+        <link rel="stylesheet" href="../src/client/pages/quiz/quiz.css">
+        <link rel="stylesheet" href="../src/client/shared/display.css">
+        <link rel="stylesheet" href="../src/client/shared/colorScheme.css">
+        
+        <script type="module" src="../src/client/pages/quiz/quiz.js" defer></script>
+        <script type="module" src="../src/client/shared/flashcardSetDummyData.js"defer></script>
 
-        <link type="stylesheet" href="../src/client/pages/quiz/quiz.css">
-        <script src="../src/client/pages/quiz/quiz.js"></script>
-        <script src="../src/client/shared/flashcardSetDummyData.js"></script>
+        
     </head>
 
     <body>
         <header>
-
+            <button id="back"><img id="button-image" src="../src/client/pages/quiz/images/back-arrow-icon-16.jpg" alt="Back"></button>
+            <h2 id="Top Bar">Quiz</h2>
+            <a id="quiz-home" href="./index.html"> <button>Home</button></a>
         </header>
         <main>
+            
+            <div id="start-screen" class="screen active" >
+                
+                <p class="set-name"></p>
+                <p class="number-cards"></p>
+                <button id="start-button" >Start</button>
+            </div>
 
+            <div id="quiz-screen" class="screen">
+                <div id="question">
+                    <p>This is a Term</p>
+                </div>
+                <div id="answer-choices">
+                    <button class="answer">Answer 1</button>
+                    <button class="answer">Answer 2</button>
+                    <button class="answer">Answer 3</button>
+                    <button class="answer">Answer 4</button>
+                </div>
+
+                <div id="change-question">
+                    <button id="previous-question">Previous Question</button>
+                    <button id="next-question">Next Question</button>
+                </div>
+            </div>
+
+            <div id="results" class="screen">
+
+            </div>
         </main>
         <footer>
 
