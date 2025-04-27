@@ -67,27 +67,62 @@ async function PData(url,FileOrLocal,newSetName){
 
 }
 
+
 let set = document.getElementsByClassName("set");
+
 document.addEventListener('DOMContentLoaded', () => {
-    PData(url, true);
+    PData(url, true); // load initial flashcards from your server dummy.json
     const setContainer = document.getElementById("flashcardSets");
-    document.addEventListener("input", ()=> {
-        let fileVal = document.getElementById("fileUpload").value;
-        const parts = fileVal.split("\\");
-        const parts2 = parts[parts.length-1].split(".");
-        const parts3 = {Set : parts2[0]};
-        PData(url, false, parts3);
-    })
-    document.addEventListener("change", () =>{
+
+    // (changed) listen for file upload
+    document.getElementById("fileUpload").addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (!file) {
+            console.log("No file selected.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                saveSetToAllSets(importedData);
+
+                const parts2 = file.name.split(".");
+                const parts3 = { Set: parts2[0] };
+                PData(url, false, parts3);
+            } catch (error) {
+                console.error("Error parsing uploaded file:", error);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    // still the same: click events for flashcard sets
+    document.addEventListener("change", () => {
         let clickEvent = 0;
         set = document.getElementsByClassName("set");
-            for(let element of set){
-                element.addEventListener("click", () =>{
-                    console.log(element.innerHTML);
-                    let file = element.innerHTML +  ".json";
-                    const data = { Set: file};
-                    localStorage.setItem("myData", JSON.stringify(data));
+        for (let element of set) {
+            element.addEventListener("click", () => {
+                console.log(element.innerHTML);
+                let file = element.innerHTML + ".json";
+                const data = { Set: file };
+                localStorage.setItem("myData", JSON.stringify(data));
             });
         }
     });
 });
+
+
+
+function saveSetToAllSets(newSet) {
+    let allSets = JSON.parse(localStorage.getItem("allSets")) || [];
+    allSets.push(newSet); // newSet should be an object (your imported data)
+    localStorage.setItem("allSets", JSON.stringify(allSets));
+}
+
+
+
+
+//gotta load the content of the card into the allsets after importing. 
+//dashboard needs to reload sets from all sets when the user goes back
