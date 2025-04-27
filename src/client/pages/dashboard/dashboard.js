@@ -9,12 +9,6 @@ function displaySets(FileOrLocal,newSetName){
         setP.style.display = "none";
         let index = 0;
         if(FileOrLocal){
-            if(localStorage.getItem("tempData") == null){
-                localStorage.setItem("tempData", JSON.stringify(newSetName));
-                const storedData = localStorage.getItem("tempData");
-                const parsedData = JSON.parse(storedData);
-                flashcardSets.push(parsedData.Set);
-            }
             for(let element of flashcardSets){
                 set[index].innerHTML = element;
                 set[index].style.display = "block";
@@ -36,10 +30,9 @@ function displaySets(FileOrLocal,newSetName){
             newSet.classList.add("set");
             newSet.href = "flashcardPage.html";
             set = document.getElementsByClassName("set");
-            localStorage.setItem("myData", JSON.stringify(newSetName));
+            localStorage.setItem("myData", newSetName);
             const storedData = localStorage.getItem('myData');
-            const parsedData = JSON.parse(storedData);
-            set[set.length - 1].innerHTML = parsedData.Set;
+            set[set.length - 1].innerHTML = storedData;
             set[set.length - 1].style.display = "block";
         }
         }
@@ -88,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 saveSetToAllSets(importedData);
 
                 const parts2 = file.name.split(".");
-                const parts3 = { Set: parts2[0] };
-                PData(url, false, parts3);
+                const newSetName = parts2[0]; // Extract the set name as a string
+                PData(url, false, newSetName); // Pass the string directly
             } catch (error) {
                 console.error("Error parsing uploaded file:", error);
             }
@@ -103,9 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let element of set) {
             element.addEventListener("click", () => {
                 console.log(element.innerHTML);
-                let file = element.innerHTML + ".json";
-                const data = { Set: file };
-                localStorage.setItem("myData", JSON.stringify(data));
+                let file = element.innerHTML;
+              //  const data = { Set: file };
+                localStorage.setItem("myData", file);
             });
         }
     });
@@ -118,8 +111,3 @@ function saveSetToAllSets(newSet) {
     allSets.push(newSet); 
     localStorage.setItem("allSets", JSON.stringify(allSets));
 }
-
-
-
-
-//dashboard needs to reload sets from all sets when the user goes back

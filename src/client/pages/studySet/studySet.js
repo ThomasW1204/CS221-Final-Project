@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     const setTitleElement=document.getElementById("setTitle");
     const cardsContainer=document.getElementById("cardsContainer");
 
-    const currentSetName= localStorage.getItem("currentSet");
+    const currentSetName= localStorage.getItem("myData");
     const allSets=JSON.parse(localStorage.getItem("allSets")) ||{};
 
     if(!currentSetName || !allSets[currentSetName]){

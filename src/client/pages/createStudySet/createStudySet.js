@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         saveSetToLocalStorage(flashCardSet);
 
         //helps flashcardPage.html know by setName which file to let the viewer see (the one just uploaded)
-        localStorage.setItem("currentSet",flashCardSet.setName);
+        localStorage.setItem("myData",flashCardSet.setName);
         window.location.href ="studySet.html";
     });
 

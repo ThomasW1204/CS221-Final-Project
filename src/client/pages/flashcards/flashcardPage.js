@@ -4,7 +4,7 @@
 
 //maybe fix the fact that when you flip the card and go to the next card it shows answer. (always default to term) 
 
-//for the dashboard page, all data needs to be reread when the page loads again or something like that.
+//for the dashboard page, all data needs to be reread when the page loads again or something like that
 
 let isFlipped = false;
 
@@ -205,8 +205,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (storedData) {
     console.log("Found storedData:", storedData);  
 
-    const parsedData = JSON.parse(storedData);
-    let setTitle = parsedData.Set;  
+    
+    let setTitle = storedData;
+    
     console.log("Selected set:", setTitle); 
 
 
@@ -225,7 +226,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.log("Parsed allSets:", sets);  
 
       
-      const selectedSetData = sets.find(set => set.setName === setTitle); //search allSets for the user selected set 
+      const selectedSetData = sets[setTitle];  //search all sets for the user selected set
 
       if (selectedSetData) {
         console.log("Selected set data:", selectedSetData);
