@@ -15,15 +15,15 @@
 
 <body>
     
-    <header>
-        <h1>Flashcard set name</h1> 
+    <header id ="setNameContainer">
+        <h1 id = "setName">No Set Selected</h1> 
     </header>
     
     <main>
 
         <button id = "backButton">Go Back</button>  <!--Go back to sets-->
 
-        <div id="flashcardNumber"><p></p></div> <!--display number-->
+        <div id="flashcardNumber"><p>No Set Selected</p></div> <!--display number-->
 
         
         <p id="leftArrow" onclick="back()">&larr;</p>
@@ -38,18 +38,21 @@
 
 
         <div id="bottomButtonContainer">
-        <button class="bottomButtons" onclick="flipCard()">flip Button</button> <!--flip card over to reveal answer or maybe press card if I figure it out-->
-        <a href="welcomepage.html" ><button class="bottomButtons"> Home Button</button> </a><!---->
+        <button class="bottomButtons" onclick="flipCard()">Flip Card</button> <!--flip card over to reveal answer or maybe press card if I figure it out-->
+        <a href="welcomepage.html" ><button class="bottomButtons"> Back Home Button</button> </a><!---->
         </div>
 
     </main>
 
 
 
-
+    <!--
+    
     <footer>
          footer?<br>
     </footer>
+
+    -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="../src/client/pages/flashcards/flashcardPage.js"></script>

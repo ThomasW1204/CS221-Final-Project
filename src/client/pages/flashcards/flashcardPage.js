@@ -1,7 +1,15 @@
+//figure out where the buttons are going to link to.
 
+//style everything better
+
+//maybe fix the fact that when you flip the card and go to the next card it shows answer. (always default to term) 
+
+//for the dashboard page, all data needs to be reread when the page loads again or something like that.
 
 let isFlipped = false;
 
+
+//animate the flipping 
 function flipCard(){
 isFlipped = !isFlipped;
 // Flip the card
@@ -27,10 +35,7 @@ if (isFlipped) {
 }
 
 
-
-
-
-
+//animate the next card and calls on loadnextCard
 function next() {
   const card = document.getElementById('flashcard');
 
@@ -67,7 +72,7 @@ function next() {
 }
 
 
-
+//animate previous card and calls loadprevCard 
 function back() {
   const card = document.getElementById('flashcard');
 
@@ -104,104 +109,9 @@ function back() {
 }
 
 
-
-//have cases so the user cant keep going next or prev if they have reached the start or end of the cards
-//fix the first card 
-
-
-//ADD CATCHES FOR ERRORS 
-
-
 let ques =[];
 let answ =[];
 let currentCardIndex = 0;
-
-
-
-
-//async function getData() {
-//  const response = await fetch("/src/client/pages/flashcards/dummy.json");
-//  const data = await response.json();
-//  return data;
-//}
-
-
-/*
-document.addEventListener('DOMContentLoaded',  async () => {
-  const setTitle = localStorage.getItem("selectedSet");
-  
-  if (setTitle) {
-    console.log("Selected set:", setTitle);
-    
-    // Construct the file path for the JSON file based on the set title
-    let dataFile = `flashcards/${setTitle}.json`; // Assume JSON files are named like "history.json"
-    
-    try {
-      const cards = await getSelectedSetData(dataFile); // Fetch and parse the flashcard data
-      displayCards(cards); // Function to display the flashcards
-    } catch (error) {
-      console.error("Error loading flashcards:", error);
-    }
-  } else {
-    console.log("No set selected.");
-  }
-});
-
-
-
-async function getSelectedSetData(dataFile) {
-  const response = await fetch(dataFile);
-  
-  if (!response.ok) {
-    throw new Error(`Failed to load ${dataFile}: ${response.status}`);
-  }
-  
-  const data = await response.json();
-  
-  return data.cards;
-}
-
-
-
-/*
-async function PData(){
-  const data = await getSelectedSetData(dataFile); 
-  let i = 0;
-  data.forEach(item => {
-    ques.push(item.question)
-    answ.push(item.answer)
-    console.log(ques[i])
-    console.log(answ[i])
-i++;
-  });
-}
-  
-
-PData().then(() => {
-  // Now you can safely use ques and answ because PData is finished
-  console.log("Now we can access the data outside the function!");
-  console.log("All questions:", ques);
-  console.log("All answers:", answ);
-
-
-// Show first card content
-document.querySelector('#flashcardContent_question p').textContent = ques[0];
-document.querySelector('#flashcardContent_ans p').textContent = answ[0];
-document.getElementById("flashcardNumber").textContent = "flashcard 1/" + ques.length;
-
-// Hide answer side initially
-document.getElementById('flashcardContent_question').style.display = 'block';
-document.getElementById('flashcardContent_ans').style.display = 'none';
-
-document.getElementById("flashcardNumber").textContent = "flashcard" + (currentCardIndex +1)  + "/" + ques.length
-
-
-  updateArrowVisibility();
-});
-
-
-
-*/
 
 
 function loadNextCard() {
@@ -209,8 +119,10 @@ function loadNextCard() {
   document.querySelector('#flashcardContent_question p').textContent = ques[currentCardIndex];
   document.querySelector('#flashcardContent_ans p').textContent = answ[currentCardIndex];
   
-  document.getElementById("flashcardNumber").textContent = "flashcard" + (currentCardIndex + 1) + "/" + ques.length
-  updateArrowVisibility();  
+  
+  document.getElementById("flashcardNumber").textContent = "Flashcard " + (currentCardIndex + 1) + "/" + ques.length //change number 
+  
+  updateArrowVisibility();  //see if the arrow needs to be hidden
 }
 
 
@@ -218,15 +130,17 @@ function loadPrevCard(){
   currentCardIndex = (currentCardIndex - 1 + ques.length) % ques.length;
   document.querySelector('#flashcardContent_question p').textContent = ques[currentCardIndex];
   document.querySelector('#flashcardContent_ans p').textContent = answ[currentCardIndex];
-
-  document.getElementById("flashcardNumber").textContent = "flashcard" + (currentCardIndex +1)+ "/" + ques.length
-  updateArrowVisibility();
+   
+  document.getElementById("flashcardNumber").textContent = "Flashcard " + (currentCardIndex +1)+ "/" + ques.length //change number
+  
+  
+  
+  updateArrowVisibility(); //see if arrow needs to be hidden
 }
 
 
-
-
-
+//this function sees if the user reaches the beginning or end of the set
+// and hides the arrow so they can't keep going if there are no cards left.
 function updateArrowVisibility() {
   const leftArrow = document.getElementById("leftArrow");
   const rightArrow = document.getElementById("rightArrow");
@@ -245,20 +159,8 @@ function updateArrowVisibility() {
 }
 
 
+/*might delete this temp comment out just incase
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Fetch flashcard data from the specific file
 async function getSelectedSetData(dataFile) {
   const response = await fetch(dataFile);
 
@@ -267,57 +169,68 @@ async function getSelectedSetData(dataFile) {
   }
 
   const data = await response.json();
-  return data.cards; // Assuming the cards are stored in 'cards' in the JSON
+  return data.cards; 
 }
+  */
 
-// Display flashcards
+
+
+//loads the quest and answ arrays to read from and loads the first card
 function displayCards(cards) {
-  // This function should be responsible for initially displaying the cards
   cards.forEach((item, i) => {
-    ques.push(item.term);  // Store the questions
-    answ.push(item.definition);    // Store the answers
+    ques.push(item.term);  
+    answ.push(item.definition);  
     console.log(ques[i]);
     console.log(answ[i]);
   });
 
-  // Show the first card when the page loads
-  loadNextCard();
+
+  document.querySelector('#flashcardContent_question p').textContent = ques[currentCardIndex];
+  document.querySelector('#flashcardContent_ans p').textContent = answ[currentCardIndex];
+
+  document.getElementById("flashcardNumber").textContent = "Flashcard " + (currentCardIndex +1)+ "/" + ques.length
+  updateArrowVisibility();
+
+
 }
+
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log("LocalStorage:", localStorage);
 
-  const storedData = localStorage.getItem("myData");  // Get the selected set from 'mydata'
+  const storedData = localStorage.getItem("myData");  //get the user selected set from myData
   console.log(storedData)
 
   if (storedData) {
-    console.log("Found storedData:", storedData);  // Log the storedData for debugging
+    console.log("Found storedData:", storedData);  
 
     const parsedData = JSON.parse(storedData);
-    let setTitle = parsedData.Set;  // This gives you the file name, e.g., "test 3"
-    console.log("Selected set:", setTitle);
+    let setTitle = parsedData.Set;  
+    console.log("Selected set:", setTitle); 
 
 
-    setTitle = setTitle.replace("_", " ");  // This replaces the underscore with a space
+    setTitle = setTitle.replace("_", " ");  // This replaces underscore with a space
+
+ document.getElementById("setName").textContent = setTitle  //set the name on the page to the users selected set
+
 
     console.log(setTitle);
-    // Retrieve 'allSets' from localStorage
-    const allSets = localStorage.getItem("allSets");
+    const allSets = localStorage.getItem("allSets"); //get every set from allSets
 
     if (allSets) {
-      console.log("All sets:", allSets);  // Log allSets for debugging
+      console.log("All sets:", allSets);  
 
-      const sets = JSON.parse(allSets);  // Parse 'allSets' into an object
-      console.log("Parsed allSets:", sets);  // Log the parsed allSets object
+      const sets = JSON.parse(allSets);  
+      console.log("Parsed allSets:", sets);  
 
-      // Check if the selected set (setTitle) exists as a key in allSets
-      const selectedSetData = sets[setTitle];  // Use the set title to get the corresponding data
+      
+      const selectedSetData = sets.find(set => set.setName === setTitle); //search allSets for the user selected set 
 
       if (selectedSetData) {
         console.log("Selected set data:", selectedSetData);
 
-        // Now, you can access the cards within the selected set
-        displayCards(selectedSetData.cards); // Assuming each set has a 'cards' array
+        displayCards(selectedSetData.cards);  //load the quest and answ arrays 
       } else {
         console.log(`Set '${setTitle}' not found in allSets.`);
       }
@@ -326,14 +239,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   } else {
     console.log("No set selected.");
-    // Optionally, show a message on the page indicating no set was selected
+    
   }
 });
 
 
-
+//this is for the back button. when the user presses it, it goes back to the previous page the user was on
+// it also deselects the user selected set by clearing myData because they are not on that set anymore.
 document.getElementById("backButton").addEventListener("click",()=>{
   localStorage.setItem("myData", "")
   history.back()
 
 });
+
+

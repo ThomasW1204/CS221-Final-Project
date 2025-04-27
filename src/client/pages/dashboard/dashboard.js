@@ -71,10 +71,9 @@ async function PData(url,FileOrLocal,newSetName){
 let set = document.getElementsByClassName("set");
 
 document.addEventListener('DOMContentLoaded', () => {
-    PData(url, true); // load initial flashcards from your server dummy.json
+    PData(url, true); 
     const setContainer = document.getElementById("flashcardSets");
 
-    // (changed) listen for file upload
     document.getElementById("fileUpload").addEventListener("change", (event) => {
         const file = event.target.files[0];
         if (!file) {
@@ -98,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsText(file);
     });
 
-    // still the same: click events for flashcard sets
     document.addEventListener("change", () => {
         let clickEvent = 0;
         set = document.getElementsByClassName("set");
@@ -117,12 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function saveSetToAllSets(newSet) {
     let allSets = JSON.parse(localStorage.getItem("allSets")) || [];
-    allSets.push(newSet); // newSet should be an object (your imported data)
+    allSets.push(newSet); 
     localStorage.setItem("allSets", JSON.stringify(allSets));
 }
 
 
 
 
-//gotta load the content of the card into the allsets after importing. 
 //dashboard needs to reload sets from all sets when the user goes back
