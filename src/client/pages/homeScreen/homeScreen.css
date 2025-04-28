@@ -76,9 +76,9 @@ main {
     background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
 }
 
-.button:hover {
+.options:hover {
     background: #cce5cc;
-}
+  }
 
 .display {
     flex: 1;
