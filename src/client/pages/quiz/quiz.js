@@ -6,40 +6,8 @@
 
 // Import Flashcard set
 import flashcardSets from "../../shared/flashcardSetDummyData.js";
-import { switchActiveScreen } from "../../shared/display.js";
+import { activateOverlay, deactivateOverlay, switchActiveScreen } from "../../shared/display.js";
 import QuestionState from "./QuestionState.js";
-
-
-/*
-    Quiz Flow Overview: This is how the quiz page will flow.
-    This step flow was printed by copilot after I pull my own flow into it
-    and it outputted as a concise step system for me to Copy
-    This is how the page flows and Rules to follow:
-    
-    1. Preload Questions on Page Load
-        - Shuffle flashcards and preload 10 questions in the background.
-        - Do NOT build more unless the user starts the quiz. (This helps save unnecessary computation and memory)
-
-    2. Start Quiz on User Interaction
-        - When the quiz begins, duplicate and shuffle the flashcards.
-        - Push cards in batches (e.g., 10 at a time) onto a stack for processing. (Doesn't overload memory)
-
-    3. Build Questions Dynamically
-        - Pop a card from the stack to build a new question. (Make sure to stay 5-10 question ahead of user)
-        - Add it to the question queue for display.
-
-    4. Prevent Duplicate Questions
-        - Before adding a question, check if it has already been used. (Checks against array of initial terms)
-        - If a duplicate is found, pop the next card without creating a question.
-
-    5. Adaptive Loading for Fast Users
-        - If the user moves quickly, ensure enough questions are preloaded. (5-10 ahead)
-        - Always keep the queue ahead of the user's pace.
-
-    6. Repeat Until Stack is Empty or User Quits
-        - Continue popping and building questions until the stack runs out.
-        - If the user exits early, stop loading more questions to save memory.
-*/
 
 // Get references to the necessary elements that will be updated
 // Operation Buttons: These buttons change screens or progress through the questions
@@ -89,10 +57,12 @@ const buttonObjectArray = [
 const DEFAULT_ANSWER_BUTTON_CLASS = 'answer'; 
 
 // Get the set for tests
-const testSet = flashcardSets[0];
+const testSetTitle = flashcardSets[1].setName; // This is the name of the set that will be used to display the title of the quiz
+const testSet = flashcardSets[1].cards;
+const cardStack = []; // Stack for the cards to be used in the quiz
 
 // Set Title
-document.title=`Quiz - ${testSet.setName}`;
+document.title=`Quiz - ${testSetTitle}`;
 
 
 
@@ -110,30 +80,49 @@ let questionNumber = 0;
 let currentQuestion = -1;
 
 let correctAnswerCount = 0;
-let maxNumberOfQuestions = 10; // This is the maximum number of questions that can be generated for a generated quiz. Default is 10
+let maxNumberOfQuestions = 5; // This is the maximum number of questions that can be generated for a generated quiz. Default is 10
+
+let generateQuestion = true; // This is a flag to determine if we are generating questions or not
 // Functions
 
 function selectQuizType() {
-    const quizTypeOptions = document.getElementById("quiz-type-options");
-    quizTypeOptions.classList.add('active');
     
-    const startQuizButton = document.getElementById("start-quiz");
-    startQuizButton.addEventListener('click', startQuiz);
+    
+    // Temp comment out, for now immediately start quiz
+    // activateOverlay('quiz-type-options');
+    
+    // const startQuizButton = document.getElementById("start-quiz");
+    // startQuizButton.addEventListener('click', startQuiz);
+
+    startQuiz();
 }
 
+
 /**
- * This Function Starts the Quiz by switching to the quiz scree, generating a question
- * and the adding eventListeners to the answer buttons to be selected
+ * 
+ * @returns {null} :Returns nothing but will exit (return) early if the screen switch fails, logging an error message to the console.
  */
 function startQuiz(){
+    //deactivateOverlay('quiz-type-options');
+
+    // Reset Quiz Variables
+    cardStack.push(...testSet); // Copy the test set to the stack for randomization
+    questionNumber = 0;
+    currentQuestion = -1;
+    correctAnswerCount = 0;
+    maxNumberOfQuestions = 5; // This is the maximum number of questions that can be generated for a generated quiz. Default is 10
+    generateQuestion = true; // This is a flag to determine if we are generating questions or not
+    previousQuestions.length = 0; // Clear the previous questions array
+
     const screenSwitchCode = switchActiveScreen('quiz-screen');
     if (screenSwitchCode) {
         console.error(`Screen Switch Failed with Code: ${screenSwitchCode}`);
+        switchActiveScreen('error-screen');
         return;
     }
+
     generateQuestions();
     nextQuestion();
-    console.log(buttonObjectArray)
 
     nextQuestionButton.addEventListener('click', nextQuestion);
     prevQuest.addEventListener('click', previousQuestion);
@@ -141,22 +130,38 @@ function startQuiz(){
 
 
 /**
- * This Function Generates 10 Questions
+ * This Function Generates 10 Questions or generates up to the questions left or cards left
  * It first finds a random card and gets the correct answer. From there it sets the question
  * bar to have the term. The answer buttons are then replaced by random definitions. Then a random
  * button is selected as the correct answer.
  */
 function generateQuestions(){
-    for (let i = 0; i < 10; i++){
-        questionNumber = previousQuestions.length;
 
-        const questionIndex = Math.floor(Math.random() * testSet.cards.length);
-        const question = testSet.cards[questionIndex].term;
-        const answer = testSet.cards[questionIndex].definition;
+    for (let i = 0; i < 10; i++){
+        
+        // If we are out of questions, break out of the loop
+        if( questionNumber >= maxNumberOfQuestions || !cardStack[0]) {
+            generateQuestion = false;
+            break;
+        }
+
+        // Randomly select a card from the cardStack
+        const cardIndex = Math.floor(Math.random() * cardStack.length);
+        
+        // Swap to top of the stack
+        const temp = cardStack[0];
+        cardStack[0] = cardStack[cardIndex];
+        cardStack[cardIndex] = temp;
+
+        // Grab top card information and remove it from the array
+        const question = cardStack[0].term;
+        const answer = cardStack[0].definition;
+        cardStack.shift(); // Remove the card from the array
+
         let answerChoices = () => {
             const cardDefintions = [];
             for (let i = 0; i < 4; i++){
-                cardDefintions.push(testSet.cards[Math.floor(Math.random() * testSet.cards.length)].definition);
+                cardDefintions.push(testSet[Math.floor(Math.random() * testSet.length)].definition);
             }
             return cardDefintions;
         }
@@ -173,6 +178,7 @@ function generateQuestions(){
         questionNumber++;
     }
 
+    console.log("Question States: " + previousQuestions);
 }
 
 /**
@@ -182,16 +188,22 @@ function nextQuestion() {
     console.log("Next Question Clicked");
     console.log("Current Question: " + currentQuestion);
     console.log("Question Number Count: " + questionNumber);
-    if (currentQuestion >= questionNumber) {
-        loadQuestion(++currentQuestion);
-        // If running low on questions, generate more
-        if (currentQuestion >= questionNumber -5) {
-            console.log("Generating Questions")
-            generateQuestions();
-        }
+
+    if (!generateQuestion && currentQuestion+1 >= questionNumber) {
+        renderResultsScreen();
+        return;
     }
 
-   loadQuestion(++currentQuestion);
+    // If we are low on questions, generate more questions
+    if (generateQuestions && currentQuestion +1 < questionNumber -5 ) {
+        generateQuestions();
+    }
+    loadQuestion(++currentQuestion);
+    if (currentQuestion >= questionNumber - 1) {
+        nextQuestionButton.textContent = "Finish Quiz";
+    } else {
+        nextQuestionButton.textContent = "Next Question";
+    }
 }
 
 function previousQuestion() {
@@ -310,11 +322,42 @@ function resetQuestionScreen(){
 
 }
 
+function renderResultsScreen() {
+    // This function will render the results screen with the score and other information
+    console.log("Rendering Results Screen");
+    // Switch to results screen
+    try {
+        switchActiveScreen('results');
+    } catch (error) {
+        if (error instanceof ScreenError) {
+            console.error(`Screen Switch Failed with Code: ${error.code}`);
+            switchActiveScreen('error-screen');
+        } else {
+            console.error(`Unexpected Error: ${error.message}`);
+            switchActiveScreen('error-screen');
+        }
+    }
+    // Set the score and other information on the results screen
+    const scoreElement = document.getElementById("score");
+    scoreElement.textContent = `You got ${correctAnswerCount} out of ${questionNumber} questions correct!`;
 
+    // Add Event Listeners to the buttons on the results screen
+    const restartButton = document.getElementById("retry-quiz");
+    const exitButton = document.getElementById("finish-quiz");
+    const reviewButton = document.getElementById("review-questions");
+
+    restartButton.addEventListener('click', selectQuizType);
+    exitButton.addEventListener('click', () => {
+        switchActiveScreen('start-screen');
+    });
+    reviewButton.addEventListener('click', () => {
+        switchActiveScreen('quiz-screen');
+    });
+}
 
 // Setup Start Listener
 startButton.addEventListener("click", selectQuizType);
 
 // Set Top Bar to be the name of the set
-const topBar = document.getElementById("Top-Bar").textContent = `Quiz - ${testSet.setName}`;
+const topBar = document.getElementById("Top-Bar").textContent = `Quiz - ${testSetTitle}`;
 
