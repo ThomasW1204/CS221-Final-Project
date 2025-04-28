@@ -249,8 +249,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 //this is for the back button. when the user presses it, it goes back to the previous page the user was on
 // it also deselects the user selected set by clearing myData because they are not on that set anymore.
 document.getElementById("backButton").addEventListener("click",()=>{
-  localStorage.setItem("myData", "")
-  history.back()
+
+  const selectedSet=localStorage.getItem("myData");
+  if(selectedSet){
+
+    localStorage.setItem("myData",selectedSet);
+
+  }
+  
+  window.location.href="studySet.html";
 
 });
 
