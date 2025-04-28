@@ -57,12 +57,12 @@ const buttonObjectArray = [
 const DEFAULT_ANSWER_BUTTON_CLASS = 'answer'; 
 
 // Get the set for tests
-const testSetTitle = flashcardSets[1].setName; // This is the name of the set that will be used to display the title of the quiz
-const testSet = flashcardSets[1].cards;
+const setKeyTitle = flashcardSets[0].setName; // This is the name of the set that will be used to display the title of the quiz
+const setKey = flashcardSets[0].cards;
 const cardStack = []; // Stack for the cards to be used in the quiz
 
 // Set Title
-document.title=`Quiz - ${testSetTitle}`;
+document.title=`Quiz - ${setKeyTitle}`;
 
 
 
@@ -83,8 +83,33 @@ let correctAnswerCount = 0;
 let maxNumberOfQuestions = 5; // This is the maximum number of questions that can be generated for a generated quiz. Default is 10
 
 let generateQuestion = true; // This is a flag to determine if we are generating questions or not
+
+
+const scores = []; // This is the result scores that stores the previous scores of the quiz (used for comparison to user prevous scores)
+const wrongQuestions = []; // This is the array of wrong questions that will be used to review the questions after the quiz is over
+
+const images = [
+    '../src/client/pages/quiz/images/preview01.png',
+    '../src/client/pages/quiz/images/preview02.png',
+    '../src/client/pages/quiz/images/preview03.png',
+]
+
+const imageContainer = document.getElementById('preview-image');
+imageContainer.style.backgroundImage = `url(${images[0]})`;
+let currentImageIndex = 0;
+const imageInterval = setInterval((() => {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    imageContainer.style.backgroundImage = `url(${images[currentImageIndex]})`;
+}), 3000); // Change image every 3 seconds
 // Functions
 
+
+/**
+ * This function is called when the start button is clicked
+ * Currently, it will immediately start the quiz
+ * Later it will allow the user to select the quiz generation method
+ * Either: randomly/on-the-fly generation, or a pre-defined set of questions
+ */
 function selectQuizType() {
     
     
@@ -94,25 +119,36 @@ function selectQuizType() {
     // const startQuizButton = document.getElementById("start-quiz");
     // startQuizButton.addEventListener('click', startQuiz);
 
-    startQuiz();
+    switchActiveScreen('quiz-setup');
+    document.getElementById('start-quiz').addEventListener('click', startQuiz);
 }
 
 
 /**
- * 
+ * This function starts the quiz
+ * It begins by reseting the quiz variables and switching to the quiz screen
+ * @see switchActiveScreen
+ * It then generates an initial set of questions and moves on to the first question
+ * @see generateQuestions
+ * @see nextQuestion
+ * Finally, it adds the event listeners to the question navigation buttons (prev and next question)
+ * called by selectQuizType
+ * @see selectQuizType
  * @returns {null} :Returns nothing but will exit (return) early if the screen switch fails, logging an error message to the console.
  */
-function startQuiz(){
-    //deactivateOverlay('quiz-type-options');
+function startQuiz() {
+    if (document.getElementById('generated-quiz').checked) maxNumberOfQuestions = document.getElementById('question-count').value;
+    else maxNumberOfQuestions = 10; // Default to 10 questions if not selected
 
     // Reset Quiz Variables
-    cardStack.push(...testSet); // Copy the test set to the stack for randomization
+    cardStack.length = 0; // Clear the card stack
+    cardStack.push(...setKey); // Copy the test set to the stack for randomization
     questionNumber = 0;
     currentQuestion = -1;
     correctAnswerCount = 0;
-    maxNumberOfQuestions = 5; // This is the maximum number of questions that can be generated for a generated quiz. Default is 10
     generateQuestion = true; // This is a flag to determine if we are generating questions or not
     previousQuestions.length = 0; // Clear the previous questions array
+    wrongQuestions.length = 0; // Clear the wrong questions array
 
     const screenSwitchCode = switchActiveScreen('quiz-screen');
     if (screenSwitchCode) {
@@ -124,19 +160,20 @@ function startQuiz(){
     generateQuestions();
     nextQuestion();
 
-    nextQuestionButton.addEventListener('click', nextQuestion);
-    prevQuest.addEventListener('click', previousQuestion);
 }
 
 
 /**
- * This Function Generates 10 Questions or generates up to the questions left or cards left
- * It first finds a random card and gets the correct answer. From there it sets the question
- * bar to have the term. The answer buttons are then replaced by random definitions. Then a random
- * button is selected as the correct answer.
+ * This function generates up to 10 questions from the cardStack array
+ * It randomly selects a card from the stack and creates a QuestionState object
+ * The card is then removed from the stack and the QuestionState is pushed to the array: previousQuestions
+ * @see QuestionState
+ * If either the cardStack empties or the max number of questions is reached, it will stop generating questions
+ * @returns {null} : Returns nothing but will exit (return)
  */
 function generateQuestions(){
 
+    // Generate up to 10 questions
     for (let i = 0; i < 10; i++){
         
         // If we are out of questions, break out of the loop
@@ -158,36 +195,51 @@ function generateQuestions(){
         const answer = cardStack[0].definition;
         cardStack.shift(); // Remove the card from the array
 
+        /* 
+            This generates 4 random answer choices from the workingSet array.
+            Does not check for duplicates nor assign the correct answer to the choices (this is done later).
+        */
         let answerChoices = () => {
             const cardDefintions = [];
             for (let i = 0; i < 4; i++){
-                cardDefintions.push(testSet[Math.floor(Math.random() * testSet.length)].definition);
+                cardDefintions.push(setKey[Math.floor(Math.random() * setKey.length)].definition);
             }
             return cardDefintions;
         }
         answerChoices = answerChoices();
+
+        // Sets the correct answer to a random index in the answerChoices array
+        // If the answer is already in the array, it will set the correct index to that index
         const correctIndex = answerChoices.indexOf(answer) >= 0 ? answerChoices.indexOf(answer): (() => {
             const correctIndex = Math.floor(Math.random() *4)
             answerChoices[correctIndex] = answer;
             return correctIndex;
         })();
-        console.log("Correct Index: " + correctIndex);
+        //console.log("Correct Index: " + correctIndex);
 
         previousQuestions.push(new QuestionState(question,answerChoices,correctIndex));
-        console.log(previousQuestions[questionNumber]);
+        //console.log(previousQuestions[questionNumber]);
         questionNumber++;
     }
 
-    console.log("Question States: " + previousQuestions);
+    //console.log("Question States: " + previousQuestions);
 }
 
 /**
- * Loads the next question
+ * This function moves on to the next question
+ * It will first check if we are at the end of the quiz. If so, it will render the results screen
+ * @see renderResultsScreen
+ * It will then check if we are low on questions and generate more if needed
+ * @see generateQuestions
+ * Finally, it will load the next question and set the text of the next question button depending on if we are at the end of the quiz or not
+ * @see loadQuestion
+ * 
+ * @returns {null} : Returns if we are at the end of the quiz and renders the results screen
  */
 function nextQuestion() {
-    console.log("Next Question Clicked");
-    console.log("Current Question: " + currentQuestion);
-    console.log("Question Number Count: " + questionNumber);
+    //console.log("Next Question Clicked");
+    //console.log("Current Question: " + currentQuestion);
+    //console.log("Question Number Count: " + questionNumber);
 
     if (!generateQuestion && currentQuestion+1 >= questionNumber) {
         renderResultsScreen();
@@ -198,6 +250,7 @@ function nextQuestion() {
     if (generateQuestions && currentQuestion +1 < questionNumber -5 ) {
         generateQuestions();
     }
+
     loadQuestion(++currentQuestion);
     if (currentQuestion >= questionNumber - 1) {
         nextQuestionButton.textContent = "Finish Quiz";
@@ -206,13 +259,33 @@ function nextQuestion() {
     }
 }
 
+/**
+ * This function moves back to the previous question
+ * If we are not at the beginning of the quiz, it will load the previous question
+ * @see loadQuestion
+ * loadQuestion will also verify if we are at the start of the quiz and disable the previous question button
+ */
 function previousQuestion() {
     if (!(currentQuestion <= 0)) 
         loadQuestion(--currentQuestion);
 }
 
+/**
+ * This function loads and sets the elements of the question screen to the information of the current question
+ * It will start by resetting the question screen
+ * @see resetQuestionScreen
+ * It will then get the current questionState object from the previousQuestions array at index
+ * It will the updates the question text and answer choices to the QuestionState information
+ * @see QuestionState
+ * 
+ * For nextQuestion call:
+ *  It will set the event listeners for the buttons to be the correct or wrong answer
+ * @see nextQuestion
+ * For previousQuestion call:
+ * @param {number} index : The index of the question to load 
+ */
 function loadQuestion(index) {
-    console.log("Loading Question: " + index);
+    //console.log("Loading Question: " + index);
     
     resetQuestionScreen();
 
@@ -220,6 +293,8 @@ function loadQuestion(index) {
     console.log(currentQuestionObject);
 
     question_p.textContent = currentQuestionObject.question;
+
+    
 
     buttonObjectArray.forEach((button, index) => {
         // Set textContent of button to be the answer choice
@@ -238,7 +313,12 @@ function loadQuestion(index) {
         // If the question has already been answered, reveal the answers
         revealAnswers();
         buttonObjectArray[currentQuestionObject.clickedIndex].element.classList.add('clicked');
+        buttonObjectArray.forEach((button) => {
+            button.element.removeEventListener('click', button.clickHandler);
+        })
     }
+
+    document.getElementById("question-number").textContent = `Question ${index + 1} of ${questionNumber}`;
 }
 
 /**
@@ -249,9 +329,11 @@ function loadQuestion(index) {
  * @param {*} event : the button that is clicked
  */
 function wrongAnswer(event) {
-    console.log("Wrong Answer Clicked")
-    revealAnswers(event);
+    //console.log("Wrong Answer Clicked")
     event.target.classList.add('clicked');
+    revealAnswers(event);
+    
+    wrongQuestions.push(previousQuestions[currentQuestion]);
 }
 
 /**
@@ -261,10 +343,12 @@ function wrongAnswer(event) {
  */
 function correctAnswer(event) {
 
-    console.log("Correct Answer Clicked");
+    //console.log("Correct Answer Clicked");
     // Call revealAnswers to show the correct answer and remove event listeners from the buttons
-    revealAnswers(event);
     event.target.classList.add('clicked');
+    revealAnswers(event);
+    
+
     // Add to the score of correct
     correctAnswerCount++;
 }
@@ -277,6 +361,8 @@ function correctAnswer(event) {
  */
 function revealAnswers(event) {
     console.log("Revealing Answers");
+
+    
     let clickedIndex = 0;
     buttonObjectArray.forEach((button, index) => {
         if (button.clickHandler === correctAnswer) {
@@ -285,12 +371,13 @@ function revealAnswers(event) {
             button.element.classList.add('wrong');
         }
         button.element.removeEventListener('click', button.clickHandler);
-        if (button.element.classList.contains('clicked')) {
-            clcikedIndex = index;
+        if (button.element.classList.contains('clicked') ) {
+            clickedIndex = index;
         }
     })
     // Reveal the next question button and add the event listener to it
     nextQuestionButton.style.display = 'block';
+    if (previousQuestions[currentQuestion].answered) return;
     previousQuestions[currentQuestion].answer(clickedIndex);
     
 }
@@ -306,6 +393,8 @@ function resetQuestionScreen(){
     console.log("Resetting Question Screen")
     nextQuestionButton.style.display = 'none';
 
+    nextQuestionButton.textContent = "Next Question";
+
     if (currentQuestion <= 0) {
         prevQuest.style.display = 'none';
     } else {
@@ -314,7 +403,7 @@ function resetQuestionScreen(){
 
     // Clear the event listeners from the buttons and reset the class names
     buttonObjectArray.forEach((button) => {
-        console.log("\n\n");
+        //console.log("\n\n");
         button.element.className = DEFAULT_ANSWER_BUTTON_CLASS;
         button.element.removeEventListener('click', button.clickHandler);
         button.clickHandler = null;
@@ -322,9 +411,23 @@ function resetQuestionScreen(){
 
 }
 
+/**
+ * This function render the results screen, switching to the results screen and adding event listeners to its buttons
+ * It starts by switching to the results screen
+ * @see switchActiveScreen 
+ * 
+ * It then sets the score as format "You got X out of Y questions correct!"
+ * It then adds event listeners to the buttons on the results screen
+ * 
+ * Event Listeners:
+ * - Restart Quiz: Calls selectQuizType to restart the quiz
+ * - Exit Quiz: Switches to the start screen
+ * - Review Questions: Switches to the !quiz! screen to review the questions
+ *          *NOTE* this is not its own screen, it makes use of the quiz screen with and extra button to return to results screen
+ */
 function renderResultsScreen() {
     // This function will render the results screen with the score and other information
-    console.log("Rendering Results Screen");
+    //console.log("Rendering Results Screen");
     // Switch to results screen
     try {
         switchActiveScreen('results');
@@ -336,11 +439,30 @@ function renderResultsScreen() {
             console.error(`Unexpected Error: ${error.message}`);
             switchActiveScreen('error-screen');
         }
+        return;
     }
     // Set the score and other information on the results screen
     const scoreElement = document.getElementById("score");
     scoreElement.textContent = `You got ${correctAnswerCount} out of ${questionNumber} questions correct!`;
 
+    const  wrongQuestionList = document.getElementById("wrong-questions-list");
+    wrongQuestionList.innerHTML = ""; // Clear the list before adding new items
+    wrongQuestions.forEach((question) => {
+        const listItem = document.createElement("li");
+        
+        const wrongQuestionCard = document.createElement("div");
+        wrongQuestionCard.className = "wrong-question-card";
+        wrongQuestionCard.innerHTML = `<p class="question-wrong">${question.question}</p><p class="selected-answer">Your Answer: ${question.answerChoices[question.clickedIndex]}</p><p class="correct-answer">Correct Answer: ${question.answerChoices[question.correctIndex]}</p>`;
+        listItem.appendChild(wrongQuestionCard);
+        wrongQuestionList.appendChild(listItem);
+    });
+}
+
+/**
+ * This function adds event listeners to all buttons in the DOM that are not removed or replaced
+ * It will add event listeners to the buttons on the results screen and then the question navigation buttons
+ */
+function addGlobalEventListeners() {
     // Add Event Listeners to the buttons on the results screen
     const restartButton = document.getElementById("retry-quiz");
     const exitButton = document.getElementById("finish-quiz");
@@ -353,11 +475,16 @@ function renderResultsScreen() {
     reviewButton.addEventListener('click', () => {
         switchActiveScreen('quiz-screen');
     });
-}
 
+    nextQuestionButton.addEventListener('click', nextQuestion);
+    prevQuest.addEventListener('click', previousQuestion);
+
+}
 // Setup Start Listener
 startButton.addEventListener("click", selectQuizType);
 
 // Set Top Bar to be the name of the set
-const topBar = document.getElementById("Top-Bar").textContent = `Quiz - ${testSetTitle}`;
-
+Array.from(document.getElementsByClassName("title")).forEach((title) => {
+    title.textContent = `Quiz - ${setKeyTitle}`;
+  });
+addGlobalEventListeners();
