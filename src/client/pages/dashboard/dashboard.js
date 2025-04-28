@@ -9,6 +9,28 @@ function displaySets(FileOrLocal,newSetName){
         setP.style.display = "none";
         let index = 0;
         if(FileOrLocal){
+            let temp = localStorage.getItem("tempData");
+            if(temp !== null){
+                const storedData = localStorage.getItem("tempData");
+                const parsedData = JSON.parse(storedData);
+                console.log(parsedData);
+                console.log(parsedData.Set)
+                let newSetWord = "";
+                let list = [];
+                for(let element of parsedData.Set){
+                    if(element.length == 1){
+                        newSetWord += element;
+                    }else{
+                        list.push(element);
+                    }
+                }
+                console.log(newSetWord);
+                list.unshift(newSetWord);
+                for(let element of list){
+                    console.log(element);
+                    flashcardSets.push(element);
+                }
+            }
             for(let element of flashcardSets){
                 set[index].innerHTML = element;
                 set[index].style.display = "block";
@@ -79,10 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const importedData = JSON.parse(e.target.result);
                 saveSetToAllSets(importedData);
-
                 const parts2 = file.name.split(".");
                 const newSetName = parts2[0]; 
                 PData(url, false, newSetName); 
+                let temp = localStorage.getItem("tempData");
+                if(temp !== null){
+                    const storedData = localStorage.getItem("tempData");
+                    const parsedData = JSON.parse(storedData);
+                    let newSetAdded = parsedData;
+                    if(newSetAdded.Set){
+                        newSetAdded = {Set: [...newSetAdded, parts2[0]]};
+                    }
+                    else{
+                        newSetAdded = {Set: [...newSetAdded.Set, parts2[0]]};
+                    }
+                    console.log(newSetAdded);
+                    localStorage.setItem("tempData", JSON.stringify(newSetAdded));
+                }
+                else{
+                    localStorage.setItem("tempData", JSON.stringify({Set: parts2[0]}));
+                }
             } catch (error) {
                 console.error("Error parsing uploaded file:", error);
             }
