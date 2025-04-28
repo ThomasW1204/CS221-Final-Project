@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     let currentSetName= localStorage.getItem("myData");
     let allSets=JSON.parse(localStorage.getItem("allSets")) ||{};
-    currentSetName = currentSetName.replace(/_/g, " ");  // Replaces all underscores with a space
+    //currentSetName = currentSetName.replace(/_/g, " ");  
 
     if(!currentSetName || !allSets[currentSetName]){
         setTitleElement.textContent= "No Set Found";
