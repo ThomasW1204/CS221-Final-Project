@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const parsedData = JSON.parse(storedData);
                     let newSetAdded = parsedData;
                     if(newSetAdded.Set){
-                        newSetAdded = {Set: [...newSetAdded, parts2[0]]};
+                        newSetAdded = {Set: [...newSetAdded.Set, parts2[0]]};
                     }
                     else{
                         newSetAdded = {Set: [...newSetAdded.Set, parts2[0]]};
