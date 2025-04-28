@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -13,7 +15,7 @@ header {
 }
 
 .logo {
-    font-size: 5em;
+    font-size: 2.5em;
     font-weight: bold;
     color: #555;
 }
@@ -24,7 +26,7 @@ header {
 
 .lines {
     position: absolute;
-    bottom: 140px;
+    bottom: 305px;
     left:0;
     width: 100%;
     margin-top: 5px;
@@ -54,7 +56,7 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 50px;
-    gap: 5px;
+    gap: 30px;
     z-index: 1;
 }
 
@@ -76,23 +78,30 @@ main {
     background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
 }
 
-.button:hover {
-    background: #cce5cc;
+.options:hover {
+    background: #187f18;
+    border: 2px solid #071b0c;
+    transform: scale(1.05);
 }
+
 
 .display {
     flex: 1;
     margin: 20px;
-    background-color: white;
     border: 4px solid #154d29;
     border-radius: 50px;
     padding: 20px;
     position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));
 }
 
-
-footer {
-    height: 50px;
-    background-color: white;
-    border-top: 1px solid #154d29;
+.display img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50px;
 }
