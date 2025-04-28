@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     const setTitleElement=document.getElementById("setTitle");
     const cardsContainer=document.getElementById("cardsContainer");
 
-    const currentSetName= localStorage.getItem("myData");
-    const allSets=JSON.parse(localStorage.getItem("allSets")) ||{};
+    let currentSetName= localStorage.getItem("myData");
+    let allSets=JSON.parse(localStorage.getItem("allSets")) ||{};
+    currentSetName = currentSetName.replace(/_/g, " ");  // Replaces all underscores with a space
 
     if(!currentSetName || !allSets[currentSetName]){
         setTitleElement.textContent= "No Set Found";

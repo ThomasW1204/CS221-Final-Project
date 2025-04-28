@@ -40,7 +40,7 @@ function displaySets(FileOrLocal,newSetName){
                     newSet.textContent = 'This is a new a';
                     setContainer.appendChild(newSet);
                     newSet.classList.add("set");
-                    newSet.href = "flashcardPage.html";
+                    newSet.href = "studySet.html";
                     set = document.getElementsByClassName("set");
                 }
             }
@@ -50,7 +50,7 @@ function displaySets(FileOrLocal,newSetName){
             console.log(2);
             setContainer.appendChild(newSet);
             newSet.classList.add("set");
-            newSet.href = "flashcardPage.html";
+            newSet.href = "studySet.html";
             set = document.getElementsByClassName("set");
             localStorage.setItem("myData", newSetName);
             const storedData = localStorage.getItem('myData');
