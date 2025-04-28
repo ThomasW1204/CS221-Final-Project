@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -13,7 +15,7 @@ header {
 }
 
 .logo {
-    font-size: 5em;
+    font-size: 2.5em;
     font-weight: bold;
     color: #555;
 }
@@ -24,7 +26,7 @@ header {
 
 .lines {
     position: absolute;
-    bottom: 140px;
+    bottom: 300px;
     left:0;
     width: 100%;
     margin-top: 5px;
@@ -53,9 +55,12 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px;
-    gap: 5px;
+    padding: 25px;
+    gap: 2.5px;
     z-index: 1;
+    margin-top: 0px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .options {
@@ -90,9 +95,8 @@ main {
     position: relative;
 }
 
-
-footer {
-    height: 50px;
-    background-color: white;
-    border-top: 1px solid #154d29;
-}
+#displayPic img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}   
