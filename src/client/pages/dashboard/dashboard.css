@@ -1,6 +1,13 @@
 body{
     margin: 0;
     padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));  
+}
+a > span{
+    font-family: Arial, sans-serif;
+    color: #066f14;
 }
 h1{
     padding: 15px;
@@ -20,26 +27,58 @@ h1{
     padding-bottom: 15px;
     padding-right: 10px;
 }
-#bar{
-    background-color: #696969;
-    position: sticky;
+@media (min-width: 1200px) {
+    #flashcardSets{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(auto, 1fr);
+        grid-row-gap: 25px;
+        grid-column-gap: 50px;
+        overflow: hidden;
+        padding-left: 8em;
+        background: #bcb8b8;
+    }
 }
-#flashcardSets{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(auto, 1fr);
-    grid-row-gap: 25px;
-    grid-column-gap: 50px;
-    overflow: hidden;
-    padding-left: 15px;
-    padding-right: 15px;
+@media (min-width: 700px) and (max-width: 1199px) {
+    #flashcardSets{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(auto, 1fr);
+        grid-row-gap: 25px;
+        grid-column-gap: 50px;
+        overflow: hidden;
+        background: #bcb8b8;
+    }
+}
+@media (max-width: 699px) {
+    #flashcardSets{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(auto, 1fr);
+        grid-row-gap: 25px;
+        grid-column-gap: 50px;
+        overflow: hidden;
+        justify-content: center;
+        background: #bcb8b8;
+    }
 }
 #flashcardSets > a{
+    background: white;
+    border: 2px solid #175c2b;
+    padding: 20px 60px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: black;
+    height: 40px;
+    width: 200px;
     text-align: center;
-    font-size: 2em;
-    padding: 25px 50px 50px 25px;  
-    background-color: #696969;
-    color: #83958A;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px #212423;
+    background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
+    text-decoration: none;
   
 }
 p{
@@ -47,14 +86,15 @@ p{
     font-size: 1.5em;
 }
 #flashcardSets > a:hover{
-    transform: scale(1.10);
+    background: #cce5cc;
 }
 #home{
     padding-left: 15px;
     padding-top: 20px;
-    font-size: 2em;
+    font-size: 3em;
     text-decoration: none;
-    color: #066f14;
+    color: #696969;
+    font-family: Arial, sans-serif;
 }
 #home:hover{
     transform: scale(1.05);
@@ -78,9 +118,35 @@ input{
     color: black;
 }
 .fileUploadC, #createNew{
-    border: 2px solid #696969;
-    background-color: #066f14;
-    display: inline-block;
+    background: white;
+    border: 2px solid #175c2b;
+    padding: 20px 60px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: black;
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px #212423;
+    background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
+    text-decoration: none;
     padding: 18px 36px;
     cursor: pointer;
 }
+.fileUploadC:hover, #createNew:hover{
+    background: #cce5cc;
+}
+.yellow {
+    height: 10px;
+    background: #ffc107; 
+    width: 100%;
+}
+.green {
+    height: 10px;
+    background: #175c2b;
+    margin-top: 4px;
+  }

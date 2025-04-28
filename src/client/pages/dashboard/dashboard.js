@@ -1,7 +1,6 @@
 let index;
 let url = "shared/dummy.json";
 
-
 //this function just handles displaying the card on the screen
     function displaySets(flashcardSets) {
         const setContainer = document.getElementById("flashcardSets");
@@ -23,34 +22,6 @@ let url = "shared/dummy.json";
             setContainer.appendChild(newSet);
         }
     }
-
-/*
-
-async function getData(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-    const data = await response.json();
-    return data;
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-async function PData(url,newSetName){
-    const data = await getData(url); 
-    let i = 0;
-    for(let element of data.setNames){
-      flashcardSets.push(element);
-      i++;
-    }
-    displaySets(newSetName);
-
-}
-    */
-
-
 let set = document.getElementsByClassName("set");
 
 
