@@ -40,7 +40,7 @@ function displaySets(FileOrLocal,newSetName){
                     newSet.textContent = 'This is a new a';
                     setContainer.appendChild(newSet);
                     newSet.classList.add("set");
-                    newSet.href = "studySet.html";
+                    newSet.href = "flashcardPage.html";
                     set = document.getElementsByClassName("set");
                 }
             }
@@ -50,7 +50,7 @@ function displaySets(FileOrLocal,newSetName){
             console.log(2);
             setContainer.appendChild(newSet);
             newSet.classList.add("set");
-            newSet.href = "studySet.html";
+            newSet.href = "flashcardPage.html";
             set = document.getElementsByClassName("set");
             localStorage.setItem("myData", newSetName);
             const storedData = localStorage.getItem('myData');
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const parsedData = JSON.parse(storedData);
                     let newSetAdded = parsedData;
                     if(newSetAdded.Set){
-                        newSetAdded = {Set: [...newSetAdded.Set, parts2[0]]};
+                        newSetAdded = {Set: [...newSetAdded, parts2[0]]};
                     }
                     else{
                         newSetAdded = {Set: [...newSetAdded.Set, parts2[0]]};
