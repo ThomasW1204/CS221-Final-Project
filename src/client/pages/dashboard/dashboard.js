@@ -1,6 +1,5 @@
 let index;
 let url = "shared/dummy.json";
-
 //this function just handles displaying the card on the screen
     function displaySets(flashcardSets) {
         const setContainer = document.getElementById("flashcardSets");
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', async () => { //when the dom is lo
   let flashcardSets =[];
 
     flashcardSets = getAllSetNames();   //get all the names in allsets
- console.log(flashcardSets)
    displaySets(flashcardSets);   //display all the set names from allsets
     
      document.addEventListener("click", (event) => {
