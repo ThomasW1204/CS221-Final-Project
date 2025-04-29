@@ -22,10 +22,11 @@ h1{
 #header-sets{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: right;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-right: 10px;
+    background-color: white;
 }
 @media (min-width: 1200px) {
     #flashcardSets{
@@ -86,7 +87,9 @@ p{
     font-size: 1.5em;
 }
 #flashcardSets > a:hover{
-    background: #cce5cc;
+    background: #187f18;
+    border: 2px solid #071b0c;
+    transform: scale(1.05);
 }
 #home{
     padding-left: 15px;
@@ -97,9 +100,6 @@ p{
     font-family: Arial, sans-serif;
 }
 #home:hover{
-    transform: scale(1.05);
-}
-#profilePic:hover{
     transform: scale(1.05);
 }
 #importExport{
@@ -138,7 +138,9 @@ input{
     cursor: pointer;
 }
 .fileUploadC:hover, #createNew:hover{
-    background: #cce5cc;
+    background: #187f18;
+    border: 2px solid #071b0c;
+    transform: scale(1.05);
 }
 .yellow {
     height: 10px;
