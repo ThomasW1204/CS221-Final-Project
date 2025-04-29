@@ -20,6 +20,7 @@ class QuestionState {
     #answerChoices
     #correctIndex
     #answered
+    #clickedIndex
 
     constructor(question,answerChoices,correctIndex){
         this.#question = question;
@@ -28,8 +29,9 @@ class QuestionState {
         this.#answered = false;
     }
 
-    answer(){
+    answer(clicked){
         this.#answered = true;
+        this.#clickedIndex = clicked;
         Object.freeze(this);
     }
 
@@ -48,6 +50,10 @@ class QuestionState {
 
     get answered() {
         return this.#answered;
+    }
+
+    get clickedIndex() {
+        return this.#clickedIndex;
     }
 }
 

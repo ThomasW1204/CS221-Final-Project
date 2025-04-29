@@ -18,20 +18,77 @@
 
     <body>
         <header>
-            <button id="back"><img id="button-image" src="../src/client/pages/quiz/images/back-arrow-icon-16.jpg" alt="Back"></button>
-            <h2 id="Top Bar">Quiz</h2>
-            <a id="quiz-home" href="./index.html"> <button>Home</button></a>
+            
+
         </header>
         <main>
-            
+
             <div id="start-screen" class="screen active" >
                 
-                <p class="set-name"></p>
-                <p class="number-cards"></p>
-                <button id="start-button" >Start</button>
+                <div class="mainBox">
+                    <h2 class="title">Quiz</h2>
+                    <div class="logo">Ace<span>Academy</span></div>
+                    <div class="lines">
+                      <div class="yellow"></div>
+                      <div class="green"></div>
+                    </div>
+                  </div>
+                
+                <div id="preview-image"></div>
+                <div id="start-quiz-nav">
+                    <a href="./index.html"><button id="quiz-home">Home</button></a>
+                    <button id="start-button">Start</button>
+                </div>
+
+                
+                
             </div>
 
+            <div id="quiz-setup" class="screen">
+                <div class="mainBox">
+                    <h2 class="title">Quiz</h2>
+                    <div class="logo">Ace<span>Academy</span></div>
+                    <div class="lines">
+                      <div class="yellow"></div>
+                      <div class="green"></div>
+                    </div>
+                </div>
+                <div id="quiz-setup-content">
+                    <h3>Quiz Setup</h3>
+                    <p>Select the type of quiz you want to take:</p>
+                    <div id="quiz-type-options">
+                        <div id="generated-quiz-container">
+                            <input type="radio" id="generated-quiz" name="quiz-type" value="generated" checked>
+                            <label for="generated-quiz">Generated Quiz</label>
+                            <div id="generated-quiz-option">
+                                <label for="question-count">Number of Questions:</label>
+                                <input type="number" id="question-count" name="question-count" min="1" max="100" value="10">
+                            </div>
+                        </div>
+                        <!-- The custom quiz option is disabled for now.
+                        <div id="custom-quiz-container">     
+                            <input type="radio" id="custom-quiz" name="quiz-type" value="custom" disabled>
+                            <label for="custom-quiz">Custom Quiz</label>
+                            <div id="custom-quiz-option" style="display: none;">
+                                <label for="custom-quiz-file">Select Quiz File:</label>
+                                <input type="file" id="custom-quiz-file" name="custom-quiz">
+                            </div> 
+                        </div>-->
+                    </div>
+                    <button id="start-quiz">Start Quiz</button>
+                </div>
+            </div>
+
+
             <div id="quiz-screen" class="screen">
+                <div class="mainBox">
+                    <h2 class="title">Quiz</h2>
+                    <div class="logo">Ace<span>Academy</span></div>
+                    <div class="lines">
+                      <div class="yellow"></div>
+                      <div class="green"></div>
+                    </div>
+                  </div>
                 <div id="question">
                     <p>This is a Term</p>
                 </div>
@@ -42,15 +99,44 @@
                     <button class="answer">Answer 4</button>
                 </div>
 
-                <div id="change-question">
+                <div id="question-navigation">
                     <button id="previous-question">Previous Question</button>
+                    <p id="question-number">Question 1 of 10</p>
                     <button id="next-question">Next Question</button>
                 </div>
+                <button id="results-button" class="hidden">Results</button>
             </div>
 
             <div id="results" class="screen">
+                <div class="mainBox">
+                    <h2 class="title">Quiz</h2>
+                    <div class="logo">Ace<span>Academy</span></div>
+                    <div class="lines">
+                        <div class="yellow"></div>
+                        <div class="green"></div>
+                    </div>
+                </div>
+                <div id="results-page">
+                    <h3>Results</h3>
+                    <div id="wrong-questions">
+                        <h4>Wrong Questions</h4>
+                        <ul id="wrong-questions-list" style="list-style:none"></ul>
+                    </div>
+                    <p id="score">Score: 0%</p>
+                </div>
 
+                <div id="results-navigation">
+                    <button id="review-questions">Review Questions</button>
+                    <button id="retry-quiz">Retry Quiz</button>
+                    <button id="finish-quiz">Finish Quiz</button>
+                </div>
+                
             </div>
+
+            <div id="error" class="screen">
+                <p id="error-message">Error: Something went wrong.</p>
+            </div>
+            
         </main>
         <footer>
 

@@ -5,3 +5,46 @@ body{
 h1{
     color: #008000c4;
 }
+
+.mainBox {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 40px 0px;
+    position:relative;
+  }
+  
+  .logo {
+    font-size: 5em;
+    font-weight: bold;
+    color: #555;
+    margin-right: 5px;
+  }
+  
+  .logo span {
+    color: #175c2b; 
+  }
+  
+  .lines {
+    position: absolute;
+    bottom: 15px;
+    left:0;
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  .yellow {
+    height: 10px;
+    background: #ffc107; 
+    width: 100%;
+  }
+  
+  .green {
+    height: 10px;
+    background: #175c2b;
+    margin-top: 4px;
+  }
+
+  
