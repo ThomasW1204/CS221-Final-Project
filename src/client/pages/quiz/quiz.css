@@ -558,8 +558,15 @@ button:hover {
     }
 }
 
-.lines {
-    position: relative;
+@media (max-height: 975px) {
+    .lines {
+        position: static !important;
+        margin-top: 15px !important;
+    }   
+}
+
+.lines  {
+    position:absolute;
     bottom: 15px;
     left:0;
     width: 100%;
