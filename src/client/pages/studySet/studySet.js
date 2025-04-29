@@ -55,5 +55,25 @@ document.addEventListener("DOMContentLoaded", () =>{
         window.location.href ="createStudySet.html";
 
     });
+    document.getElementById("deleteCurrentSetButton").addEventListener("click",()=>{
+        deleteCurrentSet(currentSetName,allSets)
+    
+
+
+    });
+
 })
 
+//deletes the current set selected by user and takes them back to dashboard page. 
+function deleteCurrentSet(currentSetName , allsets){
+    let del = confirm("Are you sure you want to delete this set?")
+    if (del){
+        delete allsets[currentSetName]
+
+        console.log(currentSetName)
+    
+        localStorage.setItem('allSets', JSON.stringify(allsets))
+        window.location.href ="dashboard.html";
+
+    }
+} 
