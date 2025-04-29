@@ -20,13 +20,20 @@ h1{
     border-radius: 50%;
 }
 #header-sets{
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right: 10px;
     background-color: white;
+    padding: 20px;
+    border-bottom: 2px solid #154d29;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#home{
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 4em;
+    text-decoration: none;
+    color: #696969;
+    font-family: Arial, sans-serif;
 }
 @media (min-width: 1200px) {
     #flashcardSets{
@@ -62,6 +69,9 @@ h1{
         justify-content: center;
         background: #bcb8b8;
     }
+    #home{
+        font-size: 3em;
+    }
 }
 #flashcardSets > a{
     background: white;
@@ -90,14 +100,6 @@ p{
     background: #187f18;
     border: 2px solid #071b0c;
     transform: scale(1.05);
-}
-#home{
-    padding-left: 15px;
-    padding-top: 20px;
-    font-size: 3em;
-    text-decoration: none;
-    color: #696969;
-    font-family: Arial, sans-serif;
 }
 #home:hover{
     transform: scale(1.05);
@@ -143,6 +145,7 @@ input{
     transform: scale(1.05);
 }
 .yellow {
+    margin-top: 100px;
     height: 10px;
     background: #ffc107; 
     width: 100%;
