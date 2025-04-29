@@ -68,7 +68,6 @@ body {
 }
 
 .button {
-  background: white;
   border: 2px solid #175c2b;
   padding: 20px 60px;
   border-radius: 50px;
@@ -105,17 +104,22 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+  .lines {
+    bottom: 180px;
+  }
     
   .options {
-    gap: 30px;
+    gap: 20px;
     height: auto;
     padding: 20px;
+    width: auto;
   }
     
   .button {
     width: 150px;
     padding: 15px 30px;
-    font-size: 1.2em;
+    font-size: 1.5em;
     }
 }
   
@@ -128,7 +132,8 @@ body {
 
   .options {
     flex-direction: column;
-    bottom: 0;
+    width: auto;
+    height: auto;
   }
 
   .button {
@@ -137,6 +142,6 @@ body {
   }
 
   .lines {
-    bottom: 100px;
+    bottom: 137px;
   }
 }
