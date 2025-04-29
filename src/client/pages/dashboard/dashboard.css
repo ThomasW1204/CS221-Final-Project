@@ -24,7 +24,7 @@ h1{
 #home{
     padding-left: 15px;
     padding-top: 20px;
-    font-size: 80px;
+    font-size: 3em;
     text-decoration: none;
     color: #555;
     font-family: Arial, sans-serif;
@@ -62,9 +62,6 @@ h1{
         overflow: hidden;
         justify-content: center;
         background: #bcb8b8;
-    }
-    #home{
-        font-size: 3em;
     }
 }
 #flashcardSets > a{
