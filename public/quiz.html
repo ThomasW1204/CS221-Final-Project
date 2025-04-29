@@ -57,18 +57,23 @@
                     <h3>Quiz Setup</h3>
                     <p>Select the type of quiz you want to take:</p>
                     <div id="quiz-type-options">
-                        <input type="radio" id="generated-quiz" name="quiz-type" value="generated" checked>
-                        <label for="generated-quiz">Generated Quiz</label>
-                        <div id="generated-quiz-option">
-                            <label for="question-count">Number of Questions:</label>
-                            <input type="number" id="question-count" name="question-count" min="1" max="100" value="10">
+                        <div id="generated-quiz-container">
+                            <input type="radio" id="generated-quiz" name="quiz-type" value="generated" checked>
+                            <label for="generated-quiz">Generated Quiz</label>
+                            <div id="generated-quiz-option">
+                                <label for="question-count">Number of Questions:</label>
+                                <input type="number" id="question-count" name="question-count" min="1" max="100" value="10">
+                            </div>
                         </div>
-                        <input type="radio" id="custom-quiz" name="quiz-type" value="custom" disabled>
-                        <label for="custom-quiz">Custom Quiz</label>
-                        <div id="custom-quiz-option" style="display: none;">
-                            <label for="custom-quiz-file">Select Quiz File:</label>
-                            <input type="file" id="custom-quiz-file" name="custom-quiz">
-                        </div>
+                        <!-- The custom quiz option is disabled for now.
+                        <div id="custom-quiz-container">     
+                            <input type="radio" id="custom-quiz" name="quiz-type" value="custom" disabled>
+                            <label for="custom-quiz">Custom Quiz</label>
+                            <div id="custom-quiz-option" style="display: none;">
+                                <label for="custom-quiz-file">Select Quiz File:</label>
+                                <input type="file" id="custom-quiz-file" name="custom-quiz">
+                            </div> 
+                        </div>-->
                     </div>
                     <button id="start-quiz">Start Quiz</button>
                 </div>
