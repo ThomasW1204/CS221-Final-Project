@@ -61,9 +61,9 @@ starBtn.addEventListener("mouseenter", () => {
 });
 
 impBtn.addEventListener("mouseenter", () => {
-  displayP.innerHTML ="";
+  displayP.innerHTML ="<img src=../src/client/pages/homeScreen/import.gif>"
 });
 
 creBtn.addEventListener("mouseenter", () => {
-  displayP.innerHTML ="";
+  displayP.innerHTML ="<img src=../src/client/pages/homeScreen/create.gif>"
 });
