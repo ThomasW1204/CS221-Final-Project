@@ -105,3 +105,46 @@ main {
     object-fit: contain;
     border-radius: 50px;
 }
+
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons {
+        flex: none;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .options {
+        font-size: 1em;
+        padding: 1rem;
+    }
+
+    .display {
+        margin: 1rem;
+        padding: 1rem;
+        width: 80%;
+        height: 100%;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 2em;
+        padding: .5rem;
+    }
+
+    .options {
+        font-size: 1em;
+        padding: 1rem;
+    }
+
+    .buttons {
+        padding: 1rem;
+    }
+}
