@@ -3,6 +3,15 @@ body{
     background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));
 }
 
+a{
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+}
+
+a:visited{
+    color: #555;
+}
+
 header {
     background-color: white;
     padding: 20px;
@@ -100,7 +109,7 @@ h1{
 .card textarea{
 
     font-family: Arial, Helvetica, sans-serif;
-    width:90%;
+    width:97%;
     padding: 10px;
     font-size: 1rem;
     border:2px solid #175c2b;

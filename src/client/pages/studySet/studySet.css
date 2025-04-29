@@ -12,6 +12,15 @@ header {
     align-items: center;
 }
 
+a{
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+}
+
+a:visited{
+    color: #555;
+}
+
 .logo {
     font-size: 5em;
     font-weight: bold;
@@ -20,6 +29,11 @@ header {
 
 .logo span {
     color: #175c2b; 
+}
+
+a{
+    font-family: Arial, sans-serif;
+    text-decoration: none;
 }
 
 main {
