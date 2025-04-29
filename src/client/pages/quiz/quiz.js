@@ -129,8 +129,19 @@ function selectQuizType() {
     // const startQuizButton = document.getElementById("start-quiz");
     // startQuizButton.addEventListener('click', startQuiz);
 
-    switchActiveScreen('quiz-setup');
-    document.getElementById('start-quiz').addEventListener('click', startQuiz);
+    // Not in use right now, currently verifies the number of question the user wants to answer before starting the quiz
+    //switchActiveScreen('quiz-setup');
+    //document.getElementById('start-quiz').addEventListener('click', startQuiz);
+
+    const questionCount = document.getElementById('question-count').value;
+    if (questionCount < 1 || !questionCount) {// If question count is 1 or less OR NAN, invalid input
+        document.getElementById('question-count').value = setKey.length; // Set the question count to the length of the setKey array
+        alert("Please enter a valid number of questions (1 or more). Defaulting to the length of the set.");
+        return;
+    }
+    maxNumberOfQuestions = questionCount; // Set the max number of questions to the user input
+    startQuiz(); // Start the quiz
+
 }
 
 
@@ -147,8 +158,9 @@ function selectQuizType() {
  * @returns {null} :Returns nothing but will exit (return) early if the screen switch fails, logging an error message to the console.
  */
 function startQuiz() {
-    if (document.getElementById('generated-quiz').checked) maxNumberOfQuestions = document.getElementById('question-count').value;
-    else maxNumberOfQuestions = 10; // Default to 10 questions if not selected
+    // This is wil be used whenever the quiz setup is fully implemented
+    // if (document.getElementById('generated-quiz').checked) maxNumberOfQuestions = document.getElementById('question-count').value;
+    // else maxNumberOfQuestions = 10; // Default to 10 questions if not selected
 
     // Reset Quiz Variables
     cardStack.length = 0; // Clear the card stack

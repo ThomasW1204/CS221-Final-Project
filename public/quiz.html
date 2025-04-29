@@ -39,13 +39,18 @@
                 
                 <div id="start-quiz-nav">
                     <a href="./studySet.html"><button id="quiz-home">Home</button></a>
-                    <button id="start-button">Start</button>
+                    <div id="quiz-start-container">
+                        <label for="question-count">Number of Questions:</label>
+                        <input type="number" id="question-count" name="question-count" min="1" max="100" value="10">
+                        <button id="start-button">Start</button>
+                    </div>
                 </div>
 
                 
                 
             </div>
 
+            <!--Not in Use
             <div id="quiz-setup" class="screen">
                 <div class="mainBox">
                     <h2 class="title">Quiz</h2>
@@ -67,7 +72,7 @@
                                 <input type="number" id="question-count" name="question-count" min="1" max="100" value="10">
                             </div>
                         </div>
-                        <!-- The custom quiz option is disabled for now.
+                        
                         <div id="custom-quiz-container">     
                             <input type="radio" id="custom-quiz" name="quiz-type" value="custom" disabled>
                             <label for="custom-quiz">Custom Quiz</label>
@@ -75,11 +80,12 @@
                                 <label for="custom-quiz-file">Select Quiz File:</label>
                                 <input type="file" id="custom-quiz-file" name="custom-quiz">
                             </div> 
-                        </div>-->
+                        </div>
                     </div>
+
                     <button id="start-quiz">Start Quiz</button>
                 </div>
-            </div>
+            </div> -->
 
 
             <div id="quiz-screen" class="screen">
