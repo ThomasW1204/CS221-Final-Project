@@ -1,6 +1,8 @@
 body{
     font-family: Arial, sans-serif;
     background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));
+    margin: 0;
+    padding: 0;
 }
 
 a{
@@ -22,7 +24,7 @@ header {
 }
 
 .logo {
-    font-size: 5em;
+    font-size: 2.5em;
     font-weight: bold;
     color: #555;
 }
