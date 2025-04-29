@@ -58,7 +58,7 @@ creBtn.addEventListener("click", () => {
 });
 
 starBtn.addEventListener("mouseenter", () => {
-  displayP.innerHTML ="<img src=../src/client/pages/homeScreen/start.png>"
+  displayP.innerHTML ="<img src=../src/client/pages/homeScreen/start.gif>"
 });
 
 impBtn.addEventListener("mouseenter", () => {
