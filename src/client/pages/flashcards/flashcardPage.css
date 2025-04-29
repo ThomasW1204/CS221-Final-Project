@@ -44,17 +44,16 @@ main{
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); 
 
-    transform-style: preserve-3d; /* Allows 3D rotation of child elements */
+    transform-style: preserve-3d;
 
-    perspective: 1000px; /* Enables 3D perspective */
-
+    perspective: 1000px; 
     cursor: pointer;
 
     font-size: larger;
 }
 
 #flashcardContent_ans{
-    transform:  rotateY(180deg); /* Double rotation to counteract the flip */
+    transform:  rotateY(180deg); 
 
 }
 
@@ -74,6 +73,12 @@ main{
     background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
     color:black;
     font-weight: bolder;
+    cursor: pointer;
+
+}
+
+.bottomButtons:hover{
+    background: #cce5cc;
 }
 
 #flashcardNumber{
@@ -81,9 +86,7 @@ main{
     justify-self:center ;
     align-self: center;
     margin:40px;
-    /*
-    background-color:green;
-    */
+   
     color:black;
     font-size: x-large;
     padding: 5px;
@@ -102,10 +105,13 @@ main{
     transform: scale(2);
     gap:5px; 
     margin-left: 25px;
+    cursor: pointer;
 
 }
 #rightArrow:hover{
-    transform: scale(2.5); /* Makes the arrow twice as large on hover */
+    transform: scale(2.5); 
+    cursor: pointer;
+
 }
 
 #leftArrow{
@@ -117,10 +123,13 @@ main{
     font-size: xx-large;
     transform: scale(2); 
     margin-right: 25px;
+    cursor: pointer;
 
 }
 #leftArrow:hover{
-    transform: scale(2.5); /* Makes the arrow twice as large on hover */
+    transform: scale(2.5);
+    cursor: pointer;
+
 }
 
 #backButton{
@@ -131,13 +140,17 @@ main{
     color:black;
     justify-self: right;
     font-weight: bolder;
+    cursor: pointer;
+}
+
+
+#backButton:hover{
+    background: #cce5cc;
 
 }
 
 #setName{
-/*
-background-color: green;
-*/
+
 margin-top: 15px;
 margin-right: 15px;
 margin-bottom: 15px;
@@ -183,16 +196,24 @@ padding:15px;
     color: #696969;
     font-family: Arial, sans-serif;
 }
-#header-sets{
-    background-color: white;
-    padding: 5px;
-    border-bottom: 2px solid #154d29;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+
+#header-sets {
+        background-color: white;
+        padding: 5px;
+        border-bottom: 2px solid #154d29;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+}
+    
+
+    
+.logo {
+    font-size: 5em;
+    font-weight: bold;
+    color: #555;
 }
 
-a > span{
-    font-family: Arial, sans-serif;
-    color: #066f14;
+.logo span {
+    color: #175c2b; 
 }

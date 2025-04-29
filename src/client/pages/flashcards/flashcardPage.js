@@ -1,10 +1,3 @@
-//figure out where the buttons are going to link to.
-
-//style everything better
-
-//maybe fix the fact that when you flip the card and go to the next card it shows answer. (always default to term) 
-
-//for the dashboard page, all data needs to be reread when the page loads again or something like that
 
 let isFlipped = false;
 
@@ -35,77 +28,121 @@ if (isFlipped) {
 }
 
 
-//animate the next card and calls on loadnextCard
+//flips the flashcard back to the question side if it’s showing the answer then animates moves to the next flashcard.
 function next() {
   const card = document.getElementById('flashcard');
 
-  //off screen right
-  anime({
-    targets: card,
-    translateX: '100%',
-    duration: 800,
-    easing: 'easeInOutSine'
-  });
-
-  // jump to off-screen left and update content
-  setTimeout(() => {
-    anime({
-      targets: '#flashcard',
-      translateX: '-100%',
-      duration: 0 
-    });
-
-    loadNextCard()
-
-  }, 500);
-
-  // Animate to center
-  setTimeout(() => {
+  if (isFlipped) {
+    // Flip back to front side first
     anime({
       targets: card,
-      translateX: '0%',
-      duration: 800,
-      easing: 'easeInOutSine',
-    
+      rotateY: '0deg',
+      duration: 40,
+      easing: 'easeInOutSine'
     });
-  }, 500); 
+    isFlipped = false;
+
+    // Swap content after flip
+    setTimeout(() => {
+      document.getElementById('flashcardContent_question').style.display = 'block';
+      document.getElementById('flashcardContent_ans').style.display = 'none';
+
+      moveNextCard(); // slide after flip
+    }, 40);
+  } else {
+    moveNextCard(); // if not flipped, slide right away
+  }
 }
 
 
-//animate previous card and calls loadprevCard 
-function back() {
+//animates the sliding
+function moveNextCard() {
   const card = document.getElementById('flashcard');
 
-  //Animate off screen right
+  // off screen right
   anime({
     targets: card,
-    translateX: '-100%',
+    translateX: '100%',
+    opacity: 0,
     duration: 800,
     easing: 'easeInOutSine'
   });
 
-  //jump to off-screen left and update content
-  setTimeout(() => {
-    anime({
-      targets: '#flashcard',
-      translateX: '100%',
-      duration: 0 
-    });
-
-  loadPrevCard(); // update card content
-
-  }, 500);
-
-  //Animate to center
   setTimeout(() => {
     anime({
       targets: card,
-      translateX: '0%',
-      duration: 800,
-      easing: 'easeInOutSine',
-    
+      translateX: '-100%',
+      duration: 0
     });
-  }, 500);
+
+    loadNextCard(); // load next question
+
+    anime({
+      targets: card,
+      translateX: '0%',
+      opacity: 1,
+      duration: 800,
+      easing: 'easeInOutSine'
+    });
+  }, 800);
+}
+
+//flips the flashcard back to the question side if it’s showing the answer then animates moves to the prev flashcard.
+function back() {
+  const card = document.getElementById('flashcard');
+
+  if (isFlipped) {
+    // Flip back to front side first
+    anime({
+      targets: card,
+      rotateY: '0deg',
+      duration: 40,
+      easing: 'easeInOutSine'
+    });
+    isFlipped = false;
+
+    setTimeout(() => {
+      document.getElementById('flashcardContent_question').style.display = 'block';
+      document.getElementById('flashcardContent_ans').style.display = 'none';
+
+      movePrevCard(); // now slide after flip
+    }, 40);
+  } else {
+    movePrevCard(); // if not flipped, slide right away
+  }
+}
+
+
+//slided the card left
+function movePrevCard() {
+  const card = document.getElementById('flashcard');
+
+  // off screen left
+  anime({
+    targets: card,
+    translateX: '-100%',
+    opacity: 0,
+    duration: 800,
+    easing: 'easeInOutSine'
+  });
+
+  setTimeout(() => {
+    anime({
+      targets: card,
+      translateX: '100%',
+      duration: 0
+    });
+
+    loadPrevCard(); // load previous question
+
+    anime({
+      targets: card,
+      translateX: '0%',
+      opacity: 1,
+      duration: 800,
+      easing: 'easeInOutSine'
+    });
+  }, 800);
 }
 
 
@@ -115,8 +152,12 @@ let currentCardIndex = 0;
 
 
 function loadNextCard() {
+
+
   currentCardIndex = (currentCardIndex + 1) % ques.length;
+  
   document.querySelector('#flashcardContent_question p').textContent = ques[currentCardIndex];
+
   document.querySelector('#flashcardContent_ans p').textContent = answ[currentCardIndex];
   
   
@@ -127,6 +168,9 @@ function loadNextCard() {
 
 
 function loadPrevCard(){
+
+
+
   currentCardIndex = (currentCardIndex - 1 + ques.length) % ques.length;
   document.querySelector('#flashcardContent_question p').textContent = ques[currentCardIndex];
   document.querySelector('#flashcardContent_ans p').textContent = answ[currentCardIndex];
@@ -157,22 +201,6 @@ function updateArrowVisibility() {
     rightArrow.style.display = "block";
   }
 }
-
-
-/*might delete this temp comment out just incase
-
-async function getSelectedSetData(dataFile) {
-  const response = await fetch(dataFile);
-
-  if (!response.ok) {
-    throw new Error(`Failed to load ${dataFile}: ${response.status}`);
-  }
-
-  const data = await response.json();
-  return data.cards; 
-}
-  */
-
 
 
 //loads the quest and answ arrays to read from and loads the first card
@@ -262,3 +290,6 @@ document.getElementById("backButton").addEventListener("click",()=>{
 });
 
 
+
+
+// need it to default to the "term" side. 
