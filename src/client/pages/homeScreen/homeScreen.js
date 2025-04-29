@@ -4,8 +4,8 @@ const creBtn = document.getElementById("create");
 const displayP = document.getElementById("displayPic");
 let allSets = JSON.parse(localStorage.getItem("allSets")) || {};
 console.log(allSets);
-if(allSets){
-  console.log(2);
+//if (Object.keys(allSets).length === 0) {//uncomment this if you want it to only add basic sets when there are no sets
+  console.log("No sets found, adding default ones...");
   let saveSetToAllSets = ({
     "HistoryFinal" : {"setName" : "HistoryFinal",
     "cards" : [
@@ -37,8 +37,12 @@ if(allSets){
         {"term": "What was the first vaccine to be developed against a contagious disease?", "definition" :"The smallpox vaccine"},
       ]}
   });
-  localStorage.setItem("allSets", JSON.stringify(saveSetToAllSets));
-}
+ // localStorage.setItem("allSets", JSON.stringify(saveSetToAllSets));
+
+ allSets = { ...allSets, ...saveSetToAllSets };
+
+  localStorage.setItem("allSets", JSON.stringify(allSets));
+//}
 console.log(JSON.parse(localStorage.getItem("allSets")));
 
 starBtn.addEventListener("click", () => {
