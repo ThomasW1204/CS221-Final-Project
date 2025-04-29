@@ -5,7 +5,7 @@
 // Retention or usability but its the best back up plan if I can figure out server.
 
 // Import Flashcard set
-import flashcardSets from "../../shared/flashcardSetDummyData.js";
+// import flashcardSets from "../../shared/flashcardSetDummyData.js";
 import { activateOverlay, deactivateOverlay, switchActiveScreen } from "../../shared/display.js";
 import QuestionState from "./QuestionState.js";
 
@@ -56,9 +56,19 @@ const buttonObjectArray = [
  */
 const DEFAULT_ANSWER_BUTTON_CLASS = 'answer'; 
 
+let currentSetName= localStorage.getItem("myData");
+let allSets=JSON.parse(localStorage.getItem("allSets")) ||{};
+//currentSetName = currentSetName.replace(/_/g, " ");  
+
+if(!currentSetName || !allSets[currentSetName]){
+    setTitleElement.textContent= "No Set Found";
+}
+
+const flashcardSet=allSets[currentSetName];
+
 // Get the set for tests
-const setKeyTitle = flashcardSets[0].setName; // This is the name of the set that will be used to display the title of the quiz
-const setKey = flashcardSets[0].cards;
+const setKeyTitle = currentSetName; // This is the name of the set that will be used to display the title of the quiz
+const setKey = flashcardSet.cards; // This is the set of cards that will be used for the quiz
 const cardStack = []; // Stack for the cards to be used in the quiz
 
 // Set Title

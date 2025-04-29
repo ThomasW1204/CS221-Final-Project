@@ -338,9 +338,13 @@ body {
     font-weight: bold;
 }
 
+#wrong-questions-list {
+    padding: 0;
+}
+
 .wrong-question-card {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 10px;
     width: 100%;
@@ -349,6 +353,7 @@ body {
     border: black solid 1px;
     border-radius: 20px;
     margin: auto;
+    margin:0;
 }
 
 .wrong-question {
