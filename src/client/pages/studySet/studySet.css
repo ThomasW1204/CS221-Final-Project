@@ -1,4 +1,6 @@
 body{
+    margin: 0;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));
 }
@@ -169,7 +171,7 @@ footer{
     }
 
     h1{
-        font-size:20px;
+        font-size:3.5rem;
     }
 
     .logo {
