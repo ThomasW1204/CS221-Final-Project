@@ -9,6 +9,11 @@ a > span{
     font-family: Arial, sans-serif;
     color: #066f14;
 }
+
+#header-section{
+    color:black;
+}
+
 h1{
     padding: 15px;
     text-align: center;
@@ -21,6 +26,7 @@ h1{
 }
 #header-sets{
     background-color: white;
+    color:black;
     padding: 20px;
     border-bottom: 2px solid #154d29;
     display: flex;
@@ -97,7 +103,7 @@ p{
     font-size: 1.5em;
 }
 #flashcardSets > a:hover{
-    background: #187f18;
+    background: #cce5cc;
     border: 2px solid #071b0c;
     transform: scale(1.05);
 }
@@ -140,7 +146,7 @@ input{
     cursor: pointer;
 }
 .fileUploadC:hover, #createNew:hover{
-    background: #187f18;
+    background: #cce5cc;
     border: 2px solid #071b0c;
     transform: scale(1.05);
 }
