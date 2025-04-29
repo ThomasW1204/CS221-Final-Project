@@ -93,7 +93,7 @@ function back() {
     });
 
   loadPrevCard(); // update card content
-  
+
   }, 500);
 
   //Animate to center
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("Selected set:", setTitle); 
 
 
-    setTitle = setTitle.replace(/_/g, " ");  // Replaces all underscores with a space
+    //setTitle = setTitle.replace(/_/g, " ");  // Replaces all underscores with a space
 
  document.getElementById("setName").textContent = setTitle  //set the name on the page to the users selected set
 

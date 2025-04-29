@@ -1,27 +1,32 @@
 header{
     text-align: center;
-    color:white;
+    color:black;
+   /*
     background-color: grey;
     border:solid grey;
 
+    */
     margin: 15px;
 }
 
+html{
+    background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));  
 
+}
 
 
 main{
     /*background-color: lightgray;*/
 
-    background-color: grey;
+    background-image: linear-gradient(to right, rgb(172, 237, 162) , rgb(245, 245, 155));  
     padding:25px;
     display:grid;
     justify-content: center;
     grid-template-columns: 1fr 550px 1fr; 
     grid-template-rows: 1fr 350px 1fr; 
 
-
-    gap: 20px; /   
+    
+    gap: 20px;    
 }
 
 
@@ -44,6 +49,8 @@ main{
     perspective: 1000px; /* Enables 3D perspective */
 
     cursor: pointer;
+
+    font-size: larger;
 }
 
 #flashcardContent_ans{
@@ -64,8 +71,9 @@ main{
     width: 145px;
     height:80px;
     border-radius: 35px;
-    background-color: green;
-    color:white;
+    background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
+    color:black;
+    font-weight: bolder;
 }
 
 #flashcardNumber{
@@ -73,10 +81,14 @@ main{
     justify-self:center ;
     align-self: center;
     margin:40px;
+    /*
     background-color:green;
-    color:white;
+    */
+    color:black;
     font-size: x-large;
     padding: 5px;
+    font-weight: bolder;
+
 }
 
 
@@ -87,7 +99,9 @@ main{
     grid-column: 3;
     grid-row: 2;
     font-size: xx-large;
-    transform: scale(2); 
+    transform: scale(2);
+    gap:5px; 
+    margin-left: 25px;
 
 }
 #rightArrow:hover{
@@ -102,7 +116,8 @@ main{
     grid-row: 2;
     font-size: xx-large;
     transform: scale(2); 
-    
+    margin-right: 25px;
+
 }
 #leftArrow:hover{
     transform: scale(2.5); /* Makes the arrow twice as large on hover */
@@ -112,17 +127,72 @@ main{
     width: 145px;
     height:80px;
     border-radius: 35px;
-    background-color: green;
-    color:white;
+    background: linear-gradient(to bottom, #dff4ff, #b9c0bf);
+    color:black;
+    justify-self: right;
+    font-weight: bolder;
+
 }
 
 #setName{
-
+/*
 background-color: green;
+*/
 margin-top: 15px;
 margin-right: 15px;
 margin-bottom: 15px;
 margin-left: 15px;
 padding:15px;
 
+}
+
+
+#lines {
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+    grid-column: span 3; 
+    width:100vw;
+  }
+  
+  
+.yellow {
+    margin-top: 0;
+    height: 10px;
+    background: #ffc107;
+    width: 100vw;
+    grid-column: span 3; 
+    align-self: start;  
+  }
+  
+  .green {
+    margin-top: 4px; 
+    height: 10px;
+    background: #175c2b;
+    width:100vw;
+    grid-column: span 3;
+    align-self: start; 
+  }
+
+  #home{
+    padding-left: 15px;
+    padding-top: 5px;
+    font-size: 4em;
+    text-decoration: none;
+    color: #696969;
+    font-family: Arial, sans-serif;
+}
+#header-sets{
+    background-color: white;
+    padding: 5px;
+    border-bottom: 2px solid #154d29;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+a > span{
+    font-family: Arial, sans-serif;
+    color: #066f14;
 }
