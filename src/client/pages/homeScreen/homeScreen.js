@@ -14,8 +14,7 @@ console.log(allSets);
         {"term": "Who was president during the Cuban Missile Crisis?", "definition" :"John F. Kennedy"},
         {"term": "Who was the person who alerted the colonies that the British were coming?", "definition" :"Paul Revere"},
         {"term": "Who was the 4th president of the United States?", "definition" :"James Madison"},
-        {"term": "Who was the first Black Supreme Court justice in the United States?", "definition" :"Abraham Lincoln"},
-        {"term": "Who created the Emancipation Proclamation?", "definition" :"Thurgood Marshall"},
+        {"term": "Who was the first Black Supreme Court justice in the United States?", "definition" :"Thurgood Marshall"},
         {"term": "Who was the first American to win a Nobel Peace Prize?", "definition" :"Theodore Roosevelt"}
       ]},
     "MathFinal" : {"setName" : "MathFinal",
