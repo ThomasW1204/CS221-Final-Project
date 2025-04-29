@@ -99,9 +99,9 @@ const scores = []; // This is the result scores that stores the previous scores 
 const wrongQuestions = []; // This is the array of wrong questions that will be used to review the questions after the quiz is over
 
 const images = [
-    '../src/client/pages/quiz/images/preview01.png',
-    '../src/client/pages/quiz/images/preview02.png',
-    '../src/client/pages/quiz/images/preview03.png',
+    '../src/client/pages/quiz/images/preview1920px01.png',
+    '../src/client/pages/quiz/images/preview1920px02.png',
+    '../src/client/pages/quiz/images/preview1920px03.png',
 ]
 
 const imageContainer = document.getElementById('preview-image');
