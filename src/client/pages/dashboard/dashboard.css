@@ -7,17 +7,11 @@ body{
 }
 a > span{
     font-family: Arial, sans-serif;
-    color: #066f14;
+    color: #175c2b;
 }
 h1{
     padding: 15px;
     text-align: center;
-}
-#profilePic{
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 50%;
 }
 #header-sets{
     background-color: white;
@@ -30,12 +24,12 @@ h1{
 #home{
     padding-left: 15px;
     padding-top: 20px;
-    font-size: 4em;
+    font-size: 80px;
     text-decoration: none;
-    color: #696969;
+    color: #555;
     font-family: Arial, sans-serif;
 }
-@media (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
     #flashcardSets{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -47,7 +41,7 @@ h1{
         background: #bcb8b8;
     }
 }
-@media (min-width: 700px) and (max-width: 1199px) {
+@media screen and (min-width: 700px) and (max-width: 1199px) {
     #flashcardSets{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -58,7 +52,7 @@ h1{
         background: #bcb8b8;
     }
 }
-@media (max-width: 699px) {
+@media screen and (max-width: 699px) {
     #flashcardSets{
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -101,9 +95,7 @@ p{
     border: 2px solid #071b0c;
     transform: scale(1.05);
 }
-#home:hover{
-    transform: scale(1.05);
-}
+
 #importExport{
     display: flex;
     flex-direction: row;
@@ -118,6 +110,9 @@ input{
 #createNew{
     text-decoration: none;
     color: black;
+}
+#header-section{
+    color: #212423;
 }
 .fileUploadC, #createNew{
     background: white;
